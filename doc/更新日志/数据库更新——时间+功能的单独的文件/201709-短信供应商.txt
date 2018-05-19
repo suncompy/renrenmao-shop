@@ -1,0 +1,1 @@
+ALTER TABLE `jipu_sms` ADD `type` TINYINT( 5 ) NULL DEFAULT '1' COMMENT '短信供应商1-云片 2-互亿'

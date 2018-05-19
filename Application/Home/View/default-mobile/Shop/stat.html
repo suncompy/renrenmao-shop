@@ -1,0 +1,49 @@
+<extend name="Base/common"/>
+<block name="header">
+<style type="text/css">
+.post-retve{position: relative;}
+</style>
+<php>if(!is_weixin()){</php>
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+<php>}else{</php>
+  <header class="bar bar-nav">
+    <a href="{:U('/')}" class="logo"><img src="{:get_cover(C('WAP_LOGO'),'path')}" height="34" alt="{:C('WEB_SITE_TITLE')}"></a>
+    <!--<span class="nav-invite">客服：<a class="text-danger" href="TEL:{:C('WEB_SITE_TEL')}">{:C('WEB_SITE_TEL')}</a></span>-->
+  </header>
+<php>}</php>
+  <header class="bar bar-nav post-retve">
+    <div class="segmented-control">
+      <a class="control-item <if condition="$type eq 'days'"> active</if>" href="{:U('', 'type=days')}">
+        按天统计
+      </a>
+      <a class="control-item <if condition="$type eq 'months'"> active</if>" href="{:U('', 'type=months')}">
+        按月统计
+      </a>
+    </div>
+  </header>
+</block>
+
+<block name="body">
+    <div class="shop">
+        <div class="chart-title-pos">返现金额</div>
+        <div class="chart-body" id="amount_canvas">
+            <div class="waiting"><img src="__IMG__/loading.gif"> 正在加载图表插件...</div>
+        </div>
+        <div class="chart-title-pos">订单量</div>
+        <div class="chart-body" id="order_canvas">
+            <div class="waiting"><img src="__IMG__/loading.gif"> 正在加载图表插件...</div>
+        </div>
+    </div>
+</block>
+
+<block name="footer"></block>
+
+<block name="script">
+  <script>
+    seajs.use('shop', function(shop){
+     shop.statChart('amount_canvas', {labels: {$data.labels|json_encode}, datas: {$data.amount_datas|json_encode}});
+     shop.statChart('order_canvas', {labels: {$data.labels|json_encode}, datas: {$data.order_datas|json_encode}});
+    });
+
+  </script>
+</block>

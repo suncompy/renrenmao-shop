@@ -1,0 +1,30 @@
+ <volist name="data.items_list" id="vo">
+  <php>
+    $param = array('id' => $vo['id']);
+    if($data['secret']){
+      $param['sdp_secret'] = $data['secret'];
+    }
+    $item_path = U('Item/detail', $param);
+    if(in_array($vo['id'],$joinIds)){
+         $item_path = U('Join/detail', $param);
+    }
+  </php>
+  <div class="item">
+    <div class="inner">
+      <a href="{$item_path}"><img src="__IMG__/img-pai-bg.png" data-url="{:get_image_thumb($vo['cover_path'], 400, 400)}" class="lazy" alt="{$vo.name}"></a>
+      <div class="info">
+        <a href="{$item_path}" class="name">{$vo.name}</a>
+        <p class="price price-detail">
+          <span class="text-danger"><em class="yen">&yen;</em>{$vo.first_price}
+            <label>{$vo['join_num']|default=0}人团</label>
+          </span>
+            <a href="{$item_path}">立即开团</a>
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</volist>
+<script>
+  C.has_more = '{$_hasmore}';
+</script>

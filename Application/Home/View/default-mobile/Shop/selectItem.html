@@ -1,0 +1,164 @@
+<extend name="Base/common"/>
+
+<block name="header">
+<php>if(!is_weixin()){</php>
+    <div style="height: 60px;"></div>
+    <ul class="category-top-fix wap_nav" >
+        <li class="l"><a href="javascript:history.go(-1);" id="return_last_page_nav"><i class="icon icon-arrow-left"></i></a></li>
+        <li class="c" style=" line-height:44px; text-align:center; font-style:16;">
+            <notempty name="meta_title">{$meta_title|get_short=12}<else/>{:C('WEB_SITE_TITLE')}</notempty>
+        </li>
+        <li class="r" style=" color:#fff;"><i class="icon icon-list1"></i></li>
+        <li class="category">
+            <!-- 商品分类 -->
+            <div><span class="close_btn"></span></div>
+            <ul>
+                <li>
+                    <a href="{:U('Shop/selectItem', array('cid' => $vo['id']))}">
+                        <h4 class="name">所有商品 <i class="icon arrow icon-arrow-right"></i></h4>
+                    </a>
+                    <div class="sub"></div>
+                </li>
+                <notempty name="cateTree">
+                    <volist name="cateTree" id="vo">
+                        <li>
+                            <a <neq name="vo._" value="">class="cateTree"<else/>href="{:U('Shop/selectItem', array('cid' => $vo['id']))}"</neq>>
+                            <!-- <span class="item item-{$vo.ename}" style="background-color: {$vo['iconbgc']}"><i class="icon icon-{$vo.ename}"></i></span>-->
+                            <h4 class="name">{$vo['name']} <i class="icon arrow icon-arrow-right"></i></h4>
+                            </a>
+                            <div class="sub">
+                                <div class="clearfix">
+                                    <a class="btn btn-sm btn-default" href="{:U('Shop/selectItem', array('cid' => $vo['id']))}"><span>全部</span></a>
+                                    <php>$i=1;$three='<p></p>';</php>
+                                    <foreach name="vo._" item="sub">
+                                        <a class="btn btn-sm btn-default"  <neq name="sub._" value="">cid="{$i}"<else/>href="{:U('Shop/selectItem', array('cid' => $sub['id']))}"</neq>><span>{$sub['name']}</span><neq name="sub._" value=""><i class="icon arrow icon-arrow-bottom"></i></neq></a>
+                                        <php>
+                                            $three.='<p cid-'.$i.'="1">';
+                                            if(!empty($sub['_']))$three.='<a href="'.U('Shop/selectItem', array('cid' => $sub['id'])).'"><span>全部</span></a>';
+                                        </php>
+                                        <foreach name="sub._" item="thr">
+                                            <php>
+                                                $three.='<a href="'.U('Shop/selectItem', array('cid' => $thr['id'])).'"><span>'.$thr['name'].'</span></a>';
+                                            </php>
+                                        </foreach>
+                                        <php>
+                                            $three.='</p>';
+                                            $i++;
+                                            if($i%3 == 0){
+                                            echo '<div>'.$three.'</div>';
+                                            $three='';
+                                            }
+                                        </php>
+                                    </foreach>
+                                    <php>
+                                        if($i%3 != 0){
+                                        echo '<div>'.$three.'</div>';
+                                        }
+                                    </php>
+                                </div>
+                            </div>
+                        </li>
+                    </volist>
+                </notempty>
+            </ul>
+        </li>
+    </ul>
+<php>}else{</php>
+    <div style="height: 60px;"></div>
+    <ul class="category-top-fix wap_nav" style="background-color:#fff">
+        <li class="l" style="top:4px"><a href="{:U('/')}" class="logo"><img src="{:get_cover(C('WAP_LOGO'),'path')}" height="34" alt="{:C('WEB_SITE_TITLE')}"></a></li>
+        <li class="r" style=" color:#2d8701;"><i class="icon icon-list1"></i></li>
+        <li class="category">
+            <!-- 商品分类 -->
+            <div><span class="close_btn"></span></div>
+            <ul>
+                <li>
+                    <a href="{:U('Shop/selectItem', array('cid' => $vo['id']))}">
+                        <h4 class="name">所有商品 <i class="icon arrow icon-arrow-right"></i></h4>
+                    </a>
+                    <div class="sub"></div>
+                </li>
+                <notempty name="cateTree">
+                    <volist name="cateTree" id="vo">
+                        <li>
+                            <a <neq name="vo._" value="">class="cateTree"<else/>href="{:U('Shop/selectItem', array('cid' => $vo['id']))}"</neq>>
+                            <!-- <span class="item item-{$vo.ename}" style="background-color: {$vo['iconbgc']}"><i class="icon icon-{$vo.ename}"></i></span>-->
+                            <h4 class="name">{$vo['name']} <i class="icon arrow icon-arrow-right"></i></h4>
+                            </a>
+                            <div class="sub">
+                                <div class="clearfix">
+                                    <a class="btn btn-sm btn-default" href="{:U('Shop/selectItem', array('cid' => $vo['id']))}"><span>全部</span></a>
+                                    <php>$i=1;$three='<p></p>';</php>
+                                    <foreach name="vo._" item="sub">
+                                        <a class="btn btn-sm btn-default"  <neq name="sub._" value="">cid="{$i}"<else/>href="{:U('Item/search', array('cid' => $sub['id']))}"</neq>><span>{$sub['name']}</span><neq name="sub._" value=""><i class="icon arrow icon-arrow-bottom"></i></neq></a>
+                                        <php>
+                                            $three.='<p cid-'.$i.'="1">';
+                                            if(!empty($sub['_']))$three.='<a href="'.U('Shop/selectItem', array('cid' => $sub['id'])).'"><span>全部</span></a>';
+                                        </php>
+                                        <foreach name="sub._" item="thr">
+                                            <php>
+                                                $three.='<a href="'.U('Shop/selectItem', array('cid' => $thr['id'])).'"><span>'.$thr['name'].'</span></a>';
+                                            </php>
+                                        </foreach>
+                                        <php>
+                                            $three.='</p>';
+                                            $i++;
+                                            if($i%3 == 0){
+                                            echo '<div>'.$three.'</div>';
+                                            $three='';
+                                            }
+                                        </php>
+                                    </foreach>
+                                    <php>
+                                        if($i%3 != 0){
+                                        echo '<div>'.$three.'</div>';
+                                        }
+                                    </php>
+                                </div>
+                            </div>
+                        </li>
+                    </volist>
+                </notempty>
+            </ul>
+        </li>
+    </ul>
+<php>}</php>
+</block>
+
+<block name="body">
+    <notempty name="lists">
+        <div class="shop">
+            <div class="item-list clearfix" id="Z_load_itemlist">
+                <include file="itemList"/>
+            </div>
+        </div>
+        <else/>
+        <p class="list-empty">
+            暂无商品！<br>
+            <a href="{:U('Shop/selectItem')}" class="btn btn-positive">去看看别的</a>
+        </p>
+    </notempty>
+</block>
+
+<block name="footer">
+  <div class="bar bar-tab item-act">
+    <span class="pull-left">
+      <a href="{:U('Shop/item', array('uid' => UID))}" class="btn btn-block btn-positive btn-tab" id="Z_quick_buy"><i class="icon icon-form"></i>查看已选商品</a>
+    </span>
+    <span class="pull-right">
+      <a href="{:U('Shop/detail', array('uid' => UID))}" class="btn btn-block btn-negative btn-tab"><i class="icon icon-shop"></i> 我的店铺</a>
+    </span>
+  </div>  
+</block>
+
+<block name="script">
+  <script type="text/javascript">
+    seajs.use(['common', 'shop','module/category'], function(common, shop,category){
+      var url = window.location.href;
+      common.loadmore(url);
+        category.search_init();
+        category.all_init();
+      shop.selectItem();
+    });
+  </script>
+</block>

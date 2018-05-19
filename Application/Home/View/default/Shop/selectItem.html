@@ -1,0 +1,62 @@
+<extend name="Base/member"/>
+
+<block name="body">
+  <div class="user-box shop"> 
+    <div class="page-header">
+      <h3>
+        添加分销商品
+        <small><a href="{:U('Shop/item', array('uid' => UID))}" class="pull-right btn btn-link">查看已选商品&gt;</a></small>
+      </h3>
+    </div>
+      <notempty name="category">
+          <lt name="category.level" value="4">
+              <div class="list-filter cate">
+                  <dl class="dl-horizontal">
+                      <dt>分类：</dt>
+                      <foreach name="category" item="vo">
+                          <dd class="abc">
+                              <div class="clearfix">
+                                  <span class="item {$cate_active[$vo['pid']][0]} "><a href="{:U('Shop/selectItem', array('cid' => $vo['pid']))}" class="hoveritem">全部</a></span>
+                                  <foreach name="vo.item" item="val">
+                                      <span class="item {$cate_active[$vo['pid']][$val['id']]}"><a href="{:U('Shop/selectItem', array('cid' => $val['id']))}" class="hoveritem">{$val.name}</a></span>
+                                  </foreach>
+                              </div>
+                              <span class="more">更多</span>
+                          </dd>
+                      </foreach>
+                  </dl>
+              </div>
+              <script>
+                  seajs.use('jquery',function($){
+                      $('.list-filter div').each(function(index, element) {
+                          if($(element).height()>60){
+                              $(element).parent().children('.more').show();
+                              $(element).parent().children('.more').click(function(e) {
+                                  if($(element).parent().height()>60){
+                                      $(element).parent().animate({'height':'50px'});
+                                  }else{
+                                      $(element).parent().animate({'height':($(element).height()+15)+'px'});
+                                  }
+                              });
+                          }
+                      });
+                  })
+              </script>
+          </lt>
+      </notempty>
+
+    <!-- 选择分销商品 -->
+    <div class="row item-list" id="J_item_list">
+      <include file="itemList"/>
+    </div>
+    <div class="page">{$_page}</div>
+  </div>
+</block>
+
+<block name="script">
+  <script type="text/javascript">
+    seajs.use(['shop'], function(shop){
+      shop.changeItem();
+    });
+  </script>
+</block>

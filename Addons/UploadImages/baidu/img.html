@@ -1,0 +1,105 @@
+<php>$rand_key = time() . mt_rand(10000,99999);</php>
+
+<div id="uploader-demo_{$rand_key}" class="hide">
+    <!--用来存放item-->
+    <div id="fileList" class="uploader-list uploadify-button " style="height: 36px; line-height: 36px; width: 80px;"></div>
+    <div id="upload_picture_{$rand_key}" style="top: -16px;
+    left: 19px;
+    width: 80px;
+    height: 36px;">选择图片</div>
+</div>
+
+<div class="upload-img-box dragsort J-uib-{$rand_key}">
+    <div style="display: none;"></div><!-- 新增一个隐藏层，解决无图片的时候初始化图片拖拽排序插件失败的问题 -->
+    <input type="hidden" name="{$param.name}" value="{$param['images'][0][id]}" class="icon" />
+    <notempty name="param.images">
+        <volist name="param.images" id="vo">
+            <div class="upload-pre-item J_item_{$rand_key}" id="item_{$vo['id']}_{$rand_key}">
+                <img src="__ROOT__{$vo['path']}" data-id="{$vo['id']}" title="点击显示大图" />
+                <span class='btn-close delPic' title='删除图片' data-rand='{$rand_key}'></span>
+                <label class="set" for="default_{$vo['id']}"><input type="radio" name="thumb" class="thumb" value="{$vo['id']}" id="default_{$vo['id']}" <notempty name="param.thumb"><eq name="vo.id" value="$param.thumb">checked="checked"</eq><else/><eq name="key" value="0">checked="checked"</eq></notempty>> 设为封面</label>
+            </div>
+        </volist>
+    </notempty>
+</div>
+<style>
+    .controls{ position: relative;}
+    .hidhen{position: absolute; opacity: 0; filter:Alpha(opacity=0); }
+</style>
+<php>$root = SITE_URL;</php>
+<link rel="stylesheet" type="text/css" href="__JS__/webuploader/webuploader.css">
+<script type="text/javascript" src="__JS__/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__JS__/webuploader/webuploader.js"></script>
+<script type="text/javascript">
+   $(function(){
+
+   /*    if($(".J_item_{$rand_key}").size() > 0){
+        $("#uploader-demo").hide();
+        }*/
+       var root_path = '{$root}';
+       var uploader = WebUploader.create({
+           // 选完文件后，是否自动上传。
+           auto: true,
+           // swf文件路径
+           swf: "__JS__"+'/webuploader/Uploader.swf',
+           // 文件接收服务端。
+           server: "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+           // 选择文件的按钮。可选。
+           // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+           pick: {
+               id:"#upload_picture_{$rand_key}",
+
+           },
+           compress: false,
+           // 只允许选择图片文件。
+           accept: {
+               title: 'Images',
+               extensions: 'jpg,jpeg,png',
+               mimeTypes: 'image/jpg,image/jpeg,image/png'
+           }
+
+       });
+      if($(".J_item_{$rand_key}").size() > 0){
+           $("#uploader-demo_{$rand_key}").addClass('hidden');
+       }
+
+       uploader.on( 'uploadSuccess' , function( file ,response) {
+           if(response.status == 0){
+               updateAlert(response.info);
+           }else{
+               $('#upload_picture_{$rand_key}').val(response.id);
+
+                  $("#uploader-demo_{$rand_key}").hide();
+
+
+               // console.log($('#upload_picture_{$rand_key}').val());
+               var upload_item = $("<div class='upload-pre-item' id='item_" + response.id + "_{$rand_key}'></div>");
+               $(".J-uib-{$rand_key} input[name='{$param.name}']").val(response.id);
+               src = response.url || '__ROOT__' + response.path;
+               var upload_img = $("<img src=" + src + " title='点击显示大图，拖动图片可以对图片进行排序。' data-id=" + response.id + ">");
+               var img_del = $("<span class='btn-close delPic' title='删除图片' data-rand='{$rand_key}'></span>");
+               var set_thumb = $('<label class="set" for="default_' + response.id + '"><input type="radio" name="thumb" class="thumb" value="' + response.id + '" id="default_' + response.id + '"> 设为封面</label>');
+
+               //加入到upload-img-box
+               upload_item.append(upload_img);
+               upload_item.append(img_del);
+               upload_item.append(set_thumb);
+               $('.J-uib-{$rand_key}').append(upload_item);
+               updateAlert('上传成功','alert-success');
+           }
+       });
+
+       $(document).on("click",".delPic",function(){
+           $(".J-uib-"+ $(this).data('rand') +" input[name='{$param.name}']").val('');
+           $(this).parent().remove();
+           $("#uploader-demo_"+ $(this).data('rand')).show();
+           uploader.refresh();
+       });
+
+
+
+   })
+
+
+
+</script>

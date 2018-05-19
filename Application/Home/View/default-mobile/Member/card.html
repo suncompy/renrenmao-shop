@@ -1,0 +1,44 @@
+<extend name="Base/common"/>
+<block name="header">
+<php>if(!is_weixin()){</php>
+{:hook('mobileTopNav',array('title'=>$meta_title))} 
+<php>}</php>
+</block>
+<block name="body">
+  <link rel="stylesheet" href="__CSS__/new_style.css?{:time()}">
+  <div class="integral-btn" style="background: #fff;margin-top: 0;padding-top: 3px;">
+    <ul>
+        <li><a href="javascript:;" class="J_card_click"><p class="selected">绑定礼品卡</p></a></li>
+    </ul>
+    </div>
+  <div class="content-padded">
+    <notempty name="lists">
+      <div class="card-list">
+        <volist name="lists" id="vo">
+          <div class="item item-bg-1" data-url="{:U('Member/cardlog', array('card_id' => $vo.Card.id))}">
+            <div class="hd">
+              {$vo.Card.name}
+              <span class="pull-right">卡号：{$vo.Card.number}</span>
+            </div>
+            <div class="bd">
+              <h2>{$vo.Card.balance}</h2>
+            </div>
+            <div class="fd">
+              <em class="pull-right <eq name="vo.Card.is_expire" value="1">date-expired</eq>">有效期：{$vo.Card.expire_time|time_format='Y-m-d'}</em>
+            </div>
+          </div>
+        </volist>
+      </div>
+    <else/>
+      <p class="list-empty">您暂时没有礼品卡！</p>
+    </notempty>
+  </div>
+  <div class="popup J_card_bind" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1); display: none;">
+    <div class="linqu">
+        <input type="text" name="number" placeholder="输入礼品卡卡号" id="J_card_number">
+        <input type="password" name="password" placeholder="输入礼品卡密码" id="J_card_password">
+        <a href="javascript:;" class="J_card_add">领取</a>
+        <a href="javascript:;" class="btn_fh J_cancel">返回</a>
+    </div>
+    </div>
+</block>

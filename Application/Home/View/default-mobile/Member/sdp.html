@@ -1,0 +1,92 @@
+<extend name="Base/common"/>
+<block name="header">
+<php>if(!is_weixin()){</php>
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+<php>}else{</php>
+  
+<php>}</php>
+</block>
+<block name="body">
+  <div class="sdp">
+    <div class="head bg-2">
+      <a href="{:U('Shop/detail', array('uid' => UID))}" class="my-shop">我的店铺</a>
+      <div class="text-center hd">
+        <p>今日收入(元)</p>
+        <h2>{$data.today_finance|default='0.00'}</h2>
+      </div>
+      <div class="text-center bd">
+        <p>累计收入(元)</p>
+        <h4>
+          {$data.total_revenue|default='0.00'}
+          <a href="{:U('Member/finance/type/sdp_order')}" class="btn">明细</a>
+        </h4>
+      </div>
+    </div>
+    <!--新功能推荐人绑定-->
+ <!--     <notempty name="union_name">
+      <p id="tg-code" style="width:100%; background:#fff; height:44px; color: #000; padding:0 10px; line-height:44px;display:inline-block;border:1px solid #f0f0f0;margin-bottom: 7px">我的推荐人:<a href="{:U('Member/qr',array('uid'=>$unionid))}"<span style="color:#2d8701; padding-left:10px;">{:get_short($union_name,4)}</span></a></p>
+        <else/>
+          <p style="width:100%; background:#fff; height:44px; color: #000; padding:0 10px; line-height:44px;">我的推荐人:<a href="{:U('Shop/SetRecommender')}" style="color:#2d8701; padding-left:10px;">待绑定</a></p>
+      </notempty>-->
+    <div class="nav">
+      <ul class="flex-box">
+        <li>
+          <a href="{:U('Shop/manage')}">
+            <i class="icon icon-shop"></i>
+            <span>店铺设置</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:U('Shop/item')}">
+            <i class="icon icon-items"></i>
+            <span>商品管理</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="flex-box">
+        <li>
+          <a href="{:U('Shop/order')}">
+            <i class="icon icon-form"></i>
+            <span>订单管理</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:U('Shop/stat')}">
+            <i class="icon icon-stat"></i>
+            <span>店铺统计</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 收入列表 -->
+    <!-- <div class="lists">
+      <ul class="table-view" id="Z_load_itemlist">
+        <li class="table-view-cell table-view-divider"><strong>近期收入明细</strong></li>
+        <notempty name="lists">
+          <include file="Sdp/recordList"/>
+        <else />
+          <p class="list-empty">还没有分销记录哦</p>
+        </notempty>
+      </ul>
+      <notempty name='_hasmore'>
+      <p class="loadmore">
+        <a href="{:U('Sdp/record')}" class="btn btn-large btn-block"><span>查看更多明细…</span></a>
+      </p>
+      </notempty>
+    </div> -->
+  </div>
+  <div id="Z_choose_bindtype">
+    <div class="modal-select">
+      <ul>
+        <li><a href="{:U('Sdp/bind?type=alipay')}">绑定支付宝</a></li>
+        <li><a href="{:U('Sdp/bind?type=bankcard')}">绑定银行卡</a></li>
+      </ul>
+    </div>
+  </div>
+</block>
+
+<block name="script">
+  <script>
+  </script>
+</block>

@@ -1,0 +1,16 @@
+
+ <dl class="delivery-info">
+    <dd>快递公司：{$data.delivery_name}</dd>
+    <dd>快递单号：{$data.delivery_sn}</dd>
+    <dd><a href="https://www.baidu.com/s?wd={$data.delivery_name}%20{$data.delivery_sn}" target="_blank" style="color:green">[追踪]</a></dd>
+    <dd class="delivery-log hide J_delivery_log"></dd>
+</dl>
+
+<script>
+    seajs.use('delivery', function(delivery){
+        delivery.getDeliveryInfo('{$data.delivery_name}', '{$data.delivery_sn}');
+    });
+</script>
+<style>
+.modal-body{height: 700px;overflow-y: scroll;}
+</style>

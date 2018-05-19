@@ -1,0 +1,123 @@
+<extend name="Base/common"/>
+<block name="header">
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+</block>
+
+<block name="body">
+  
+  <div class="text-warning">
+    推广二维码，关注并注册成功就返利！
+    <div class="pull-right">每人返 <span class="text-danger">{:C('REWARDINVITE')}</span> 元</div>
+  </div>
+  
+  <include file="Union/head" />
+  
+  <!-- 统计概况 -->
+  <p id="tg-code" style="width:45%; background:#fff; height:44px; color: #000; padding:0 10px; line-height:44px;display:inline-block;float:left"><small>我的推广码:</small><span style="color:#2d8701; padding-left:10px;">{$invite_code}</span></p>
+   <notempty name="union_name">
+  <p style="width:55%; background:#fff; height:44px; color: #000; padding:0 10px; line-height:44px;display:inline-block"><small>我的推荐人:</small><a href="{:U('Shop/sdpCode',array('uid'=>$unionid))}" style="color:#2d8701; padding-left:10px;">{$union_name}</a></p>
+  </notempty>
+
+  <div class="union-info">
+
+    <ul class="flex-box">
+      <li>
+        <h4>本月关注人数</h4>
+        <p>{$data.this_month|default=0}</p>
+      </li>
+      <li>
+        <h4>上月关注人数</h4>
+        <p>{$data.last_month|default=0}</p>
+      </li>
+    </ul>
+    <ul class="flex-box">
+      <li>
+        <h4>总关注数</h4>
+        <p>{$data.total|default=0}</p>
+      </li>
+      <li>
+        <a href="{:U('Shop/sdpCode',array('uid'=>$uid))}">
+          <h4>推广二维码</h4>
+          <img src="__IMG__/qrcode-demo.png" width="24">
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="union-info">
+    <ul class="flex-box">
+      <li>
+        <h4>一级代理</h4>
+        <p><a href="{:U('unionerlist' ,array('type'=>1))}" >{$counts.one}</a></p>
+      </li>
+       <if condition='C("DIS_CLASS") gt 1'>
+      <li>
+        <h4>二级代理</h4>
+        <p><a href="{:U('unionerlist' ,array('type'=>2))}" >{$counts.two}</a></p>
+      </li>
+      </if>
+    </ul>
+    <ul class="flex-box">
+    <if condition='C("DIS_CLASS") gt 2'>
+      <li>
+        <h4>三级代理</h4>
+        <p><a href="{:U('unionerlist' ,array('type'=>3))}" >{$counts.three}</a></p>
+      </li>
+      <li>
+      </li>
+      </if>
+    </ul>
+  </div>
+  <!-- 图表 -->
+  <div class="union-chart">
+    <div class="chart-title-pos">关注趋势</div>
+    <div class="chart-body" id="Z_charts">
+      <div class="waiting"><img src="__IMG__/loading.gif"> 正在加载图表插件...</div>
+    </div>
+  </div>
+  <div class="control-group checkbox" style="text-align:center;">
+      <a href="javascript:;" id="zhuce-div">《推广联盟免责声明》</a>
+  </div>
+  
+  <!-- 未开通提示 -->
+  <if condition="!$data_union">
+    <div class="modal active">
+      <header class="bar bar-nav">
+        <h1 class="title">推广联盟</h1>
+      </header>
+      <div class="union-msg">
+        <p class="hd"><i class="icon icon-info"></i> 推广二维码就能赚钱，还犹豫什么呢？</p>
+        <p class="bd">
+          <a href="javascript:;" class="btn btn-positive Z_open_union">立即开通</a>
+          <!--&nbsp;
+          <a href="javascript:;" class="btn">推广说明</a-->
+        </p>
+      </div>
+    </div>
+  </if>
+
+  <div id="Z_spec_info" class="modal modal-spec">
+      <header class="bar bar-nav"> <a class="pull-right" href="#Z_spec_info"><i class="icon icon-close"></i></a>
+          <h1 class="title">推广联盟免责声明</h1>
+      </header>
+      <div class="content content-padded">
+          <div class="pro-spc" id="Z_item_spc">
+              <div class="spec-box" style="height:calc(100vh - 44px); padding:20px 0; overflow-y: auto; line-height: 2.2;">
+                  {$user_agreement}
+              </div>
+          </div>
+      </div>
+  </div>
+</block>
+<block name="script">
+  <script>
+    seajs.use(['shop','union','member'], function(shop, union,member){
+     shop.statChart('Z_charts', {labels: {:json_encode($data['labels'])}, datas: {:json_encode($data['datas'])}});
+     union.open();
+     member.zhuce();
+     var union_name = "{$union_name}";
+     if( union_name == '' ){
+      $('#tg-code').css({'width':'100%','float':'none'});
+     }
+  });
+  </script>
+</block>

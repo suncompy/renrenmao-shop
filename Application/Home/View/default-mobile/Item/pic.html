@@ -1,0 +1,8 @@
+<extend name="Base/common"/>
+<block name="header">
+    {:hook('mobileTopNav',array('title'=>$meta_title,'id'=>$data['id']))}
+</block>
+<block name="body">
+    <img src="__ROOT__{$path}">
+</block>
+

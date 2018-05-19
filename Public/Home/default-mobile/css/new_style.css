@@ -1,0 +1,68 @@
+@charset "UTF-8"; /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+.content .integral-btn {
+    margin-top: 5px;
+    width: 100%;
+    padding: 0 10px;
+    height: 64px;
+  }
+  .content .integral-btn li {
+    width: 33.3333%;
+    float: left;
+    padding: 10px 5px;
+  }
+  a:active, a:visited {
+    color: #848484;
+  }
+  .content .integral-btn li p {
+    color: #1a1a1a;
+    border: 1px #2d8701 solid;
+    border-radius: 5px;
+    padding: 8px 5px;
+    text-align: center;
+  }
+  .selected {
+    background-color: #2d8701;
+    color: #fff !important;
+  }
+  .popup {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    top: 0;
+    z-index: 999;
+    position: fixed;
+    text-align: center;
+    margin: 0;
+    padding-top: 43%;
+  }
+  .linqu {
+    padding: 0 15%;
+    z-index: 9999999999;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+  }
+  .linqu input {
+    width: 100%;
+    background: #fff;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #2d8701;
+    margin-bottom: 30px;
+    padding: 0 10px;
+    -webkit-appearance: none;
+  }
+  .linqu a {
+    background: #2d8701;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 46px;
+    border-radius: 5px;
+    float: left;
+  }
+  .linqu .btn_fh {
+    border: 1px solid #2d8701;
+    color: #1a1a1a;
+    background: #fff;
+    float: right;
+  }

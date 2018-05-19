@@ -1,0 +1,142 @@
+<extend name="Base/common"/>
+<block name="header">
+{:hook('mobileTopNav',array('title'=>'团购详情'))}
+</block>
+
+<block name="body"> 
+  <div class="order">
+   <!--  <form action="<gt name="data.total_amount" value="0">{:U('Pay/index')}<else/>{:U('Pay/quick')}</gt>" id="payment_{$data['id']}" data-ajax="false" method="POST"> -->
+      <div class="order-detail">
+        <!-- 基本信息 -->
+        <h4>基本信息</h4>
+        <ul class="table-view base">
+          <li class="table-view-cell">
+            <span class="th">订单编号：</span>
+           {$data.join_sn}
+          </li>
+          <li class="table-view-cell">
+            <span class="th">下单时间：</span>
+            {$data['ctime']|time_format}
+          </li>
+          <li class="table-view-cell">
+            <span class="th">收货地址：</span>
+           {$data.ship_area}<br>
+           {$data.ship_address}
+          </li>
+          <li class="table-view-cell">
+            <span class="th">包裹数：</span>
+           1个<span class="attachment">（含{$data['total_quantity']}件商品）</span>
+          </li>
+            <notempty name='data.memo'>
+            <volist name='data.memo' id='vo'>
+          <li class="table-view-cell">
+            <span class="th">备注：</span>
+           {$data.memo}
+          </li>
+          </volist>
+          </notempty>
+         
+         <!--  <notempty name='data.realname'>
+          <li class="table-view-cell">
+            <span class="th">真实姓名</span>
+              {$data.realname}
+          </li>
+          <li class="table-view-cell">
+            <span class="th">身份证号</span>
+              {$data.idcard}
+          </li>
+          </notempty> -->
+
+        </ul>
+        <!-- 包裹及配送信息 -->
+        <h4>包裹及配送信息</h4>
+        <ul class="table-view package">
+            <li class="table-view-cell" data-href="{:U('Item/detail', array('id' => $data['item_id']))}">
+      <span class="thumb"><img src="__ROOT__{:get_cover($data['thumb'],'path')}" alt="{$vo.name}"></span>
+              <span class="name">{$data.item_name}</span>
+              <span class="spec">{:custom_unserialize($data['spec'], 1, '，')}</span>
+
+              <span class="price">
+               &yen; {$data.price}
+                <gt name="data.total_quantity" value="0">
+                  &times;{$data.total_quantity}
+                </gt>
+                  <span class="text-danger">{$data.status|get_order_status_text}
+                  </span>
+              </span>
+            </li>
+        </ul>
+        <!-- <notempty name="data.Ship">
+         <ul class="table-view base border-none">
+            <li class="table-view-cell">
+            <span class="th">快递公司：</span>
+            {$data.Ship.delivery_name}
+            </li>
+            <li class="table-view-cell">
+              <span class="th">快递单号：</span>
+              {$data.Ship.delivery_sn}
+              <a href="javascript:$.ui.load('{:U('Order/getDelivery?order_id='.$data['id'])}', '物流配送信息');" class="btn delivery_info_btn hidden Z_delivery_info_btn btn-default">查看物流</a>
+            </li>
+          </ul>
+        </notempty> -->
+        <!-- 结算清单 -->
+        <h4>结算清单</h4>
+        <ul class="table-view base">
+          
+          <li class="table-view-cell">
+            <span class="th">商品总价：</span>
+           &yen; {$data.total_price}
+          </li>
+          <li class="table-view-cell">
+            <span class="th">运费总额：</span>
+            + &yen; {$data.delivery_fee|default=0}
+          </li>
+
+
+
+          
+         <!--  <php>$amount = sprintf('%.2f', $data['finance_amount']+$data['total_amount']);</php> -->
+          <li class="table-view-cell">
+          <if condition="$data['paytime'] gt 0">
+            <span class="th">实际支付：</span>
+            <em class="text-danger">&yen;{:sprintf('%.2f', $data['total_amount'])}</em> 
+            <else />
+            <span class="th">还需支付金额：</span>
+            <em class="text-danger"> &yen;{:sprintf('%.2f', $data['total_amount'])}</em>
+            
+          </if>
+          </li>
+          
+        </ul>
+        <h4>订单操作</h4>
+        <ul class="table-view base">
+          <li class="table-view-cell">
+            <span class="th">团购状态：</span>
+            <strong>
+            <switch name='data.j_status'>
+                <case value='0'>待拼团</case>
+                <case value='1'>拼团成功</case>
+                <case value='2'>拼单失败已退款</case>
+                <case value='3'>拼团失败且退款失败</case>
+              </switch>
+            </strong>
+          </li>
+        </ul>
+        <!-- 订单操作按钮 -->
+        
+      </div>
+    <!-- </form> -->
+  </div>
+  
+</block>
+
+<block name="script">
+  <script type="text/javascript">
+    var order, comment;
+    seajs.use(['order', 'comment','user'], function(o, c,user){
+      order = o;
+      comment = c;
+      user.getRandCode('quickPay');
+    });
+  </script>
+</block>

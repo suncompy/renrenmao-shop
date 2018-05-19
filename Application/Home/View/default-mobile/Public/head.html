@@ -1,0 +1,229 @@
+<title><notempty name="meta_title">{$meta_title|get_short=12}<else/>{:C('WEB_SITE_TITLE')}</notempty></title>
+<meta charset="utf-8">
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0" >
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="share-content" data-title="{$meta_share.title}" data-desc="{$meta_share.desc}" data-link="{$meta_share.link}" data-img_url="{$meta_share.img_url}">
+<meta property="qc:admins" content="15205077326011413056375" />
+<meta property="wb:webmaster" content="9668f61721702d43" />
+<meta property="formhash" content="{:create_form_hash()}" />
+<link href="__CSS__/style.min.css?{:time()}" rel="stylesheet">
+<!-- <link href="__CSS__/base.css" rel="stylesheet"> -->
+<block name="style"></block>
+<!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+{:hook('pageHeader')}
+<include file="Public/var"/>
+
+<if condition='C("HOME_STYLE")'>
+<php>
+$color = explode('|',C("HOME_STYLE"));
+if(count($color) == 1)$color[1] = $color[0];
+</php>
+<style type="text/css">
+.btn-primary {
+    background-color: {$color[0]};
+    border: 1px solid {$color[0]};
+}
+
+    .btn-primary.active, .btn-primary:active {
+        background-color: {$color[1]};
+        border: 1px solid {$color[1]};
+    }
+
+.btn-positive {
+    background-color: {$color[0]};
+    border: 1px solid {$color[0]};
+}
+
+    .btn-positive.active, .btn-positive:active {
+        background-color: {$color[1]};
+        border: 1px solid {$color[1]};
+    }
+
+.btn-negative {
+    background-color: {$color[0]};
+    border: 1px solid {$color[0]};
+}
+.btn-outlined.btn-positive, .btn-outlined.btn-primary {
+	color: {$color[0]};
+}
+.btn-outlined.btn-negative {
+    color: {$color[0]};
+}
+.btn-link {
+    color: {$color[0]};
+}
+
+.btn-link.active, .btn-link:active {
+    color: {$color[1]};
+}
+.bar-tab .tab-item.active, .bar-tab .tab-item:active {
+    color: {$color[0]};
+}
+.bar .btn-link {
+    color: {$color[0]};
+}
+<if condition='$color.0 == "#c40000"'>
+.item-list .item .price .buy-btn{
+    background: {$color[0]};
+    color: white;
+    border-radius: 6px;
+    border:solid 1px transparent;
+}
+.itemListsByCate .item-title span.text , .itemListsByCate .item-title span.border{
+    color: {$color[0]};
+}
+</if>
+.bar .btn-link.active, .bar .btn-link:active {
+    color: {$color[1]};
+}
+.badge-primary {
+    background-color: {$color[0]};
+}
+.badge-primary.badge-inverted {
+    color: {$color[0]};
+}
+
+.badge-positive {
+    background-color: {$color[0]};
+}
+
+    .badge-positive.badge-inverted {
+        color: {$color[0]};
+    }
+
+.badge-negative {
+    background-color: {$color[0]};
+}
+
+.badge-negative.badge-inverted {
+    color: {$color[0]};
+}
+.segmented-control-primary {
+    border-color: {$color[0]};
+}
+
+.segmented-control-primary .control-item {
+    color: {$color[0]};
+}
+
+.segmented-control-primary .control-item.active {
+    background-color: {$color[0]};
+}
+
+.segmented-control-positive {
+    border-color: {$color[0]};
+}
+
+.segmented-control-positive .control-item {
+    color: {$color[0]};
+}
+.segmented-control-negative .control-item.active {
+    background-color: {$color[0]};
+}
+.slider .slider-indicators > li.active {
+    background-color: {$color[0]};
+}
+.toggle.active {
+	background-color: {$color[0]};
+	border: 2px solid {$color[0]};
+}
+
+.toggle.active .toggle-handle {
+    border-color: {$color[0]};
+}
+.bar-nav .tel {
+   background-color: {$color[0]};
+}
+.text-success {
+    color: {$color[0]};
+}
+ .item-title .icon-box {
+        color: {$color[0]};
+    }
+ .swipeSlide .dot .cur {
+            background-color: {$color[0]};
+        }
+ .wap_nav {
+    background: {$color[0]};
+}
+.list-filter .text-danger {
+    color: {$color[0]};
+}
+.list-filter a.active {
+    color: {$color[0]};
+}
+.item-info .fav-box > .fav.has-fav {
+    color: {$color[0]};
+}
+.item-act .cart-fixed > .num {
+    background-color: {$color[0]};
+}
+.supplier-box .supplier-title .is-self {
+    color: {$color[0]};
+}
+
+.supplier-box .supplier-title a.active .icon-round-check:before {
+    color: {$color[0]};
+
+}
+.cart-group > .item > .check > a.active {
+    color: {$color[0]};
+}
+.cart-checkout > .cart-check-all.active {
+    color: {$color[0]};
+}
+.order .payment-ext > .table-view .table-view-cell.selected > .icon-square-check-fill {
+    color: {$color[0]};
+}
+.delivery-log > div > div > p i.is-new {
+    background-color: {$color[0]};
+}
+.user-third > ul > li > a:active, .user-third > ul > li > a:hover {
+    border-color: {$color[0]};
+}
+.user-third > ul > li > a:active > i, .user-third > ul > li > a:hover > i {
+    color: {$color[0]};
+}
+.nav-tabs-wb > a.active {
+    border-bottom: 2px solid {$color[0]};
+}
+.withdraw .detail > .table-view > .table-view-cell.step > .flex-box > li.active:after {
+    background-color: {$color[0]};
+}
+
+.withdraw .detail > .table-view > .table-view-cell.step > .flex-box > li.active > .icon {
+    color: {$color[0]};
+}
+.shop > .item-list > .item > .inner > .btn-act {
+    color: {$color[0]};
+}
+.nav-invite .icon {
+	color: {$color[0]};
+}
+
+.item-title > a {
+    border-left: 2px solid {$color[0]};
+}
+
+.item-title > a > .more {
+    background-color: {$color[0]};
+}
+.crowdfunding > .step .badge {
+    color: {$color[0]};
+}
+.btn-link.active, .btn-link:active {
+    color: {$color[1]};
+}
+
+.sdp > .nav > .flex-box > li > a > .icon.icon-items {
+    color: {$color[0]};
+}
+.category .sub > div > a.on {
+	border: solid 1px {$color[0]};
+    color: {$color[0]};
+}
+</style>
+
+</if>

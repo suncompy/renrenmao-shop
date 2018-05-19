@@ -1,0 +1,55 @@
+<extend name="Base/common" />
+<block name="header">
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+</block>
+
+<block name="body">
+  <form action="__SELF__" method="POST" class="input-group manage">
+      <div class="input-row">
+        <label>昵称：</label>
+        <input type="text" name="nickname" value="{$profile.nickname}" placeholder="请输入昵称">
+      </div>
+      {:hook('uploadImages', array('name' => 'avatar_id', 'tpl' => 'baidu/one','path' => $profile['avatar'] ))}
+      <div class="input-row">
+        <label>性别：</label>
+        <div class="select">
+          <select name="sex" class="form-control" style="width: 100px;">
+            <option value="0"{:$profile['sex'] == 0 ? ' selected' : ''}>保密</option>
+            <option value="1"{:$profile['sex'] == 1 ? ' selected' : ''}>男</option>
+            <option value="2"{:$profile['sex'] == 2 ? ' selected' : ''}>女</option>
+          </select>
+        </div>
+      </div>
+      <if condition='C("DIS_START") eq 1 '>
+      <div class="input-row">
+        <label>推广码：</label>
+        <input type="text" name="union_code" <notempty name='union_code'> disabled value='{$union_code}' </notempty> placeholder="输入推广码，立即成为代理用户">
+      </div>
+      </if>
+      <div class="content-padded">
+        <input type="hidden" name="avatar_serverid" value="">
+        <button class="btn btn-block btn-positive">保存设置</button>
+      </div>
+  </form>
+  <style type="text/css">
+  .Z_upload_avatar .webuploader-pick{ margin-top: 10px;padding: 0px; overflow: inherit;}
+  .Z_upload_avatar .input-row label{ padding: 0; }
+  .Z_upload_avatar .input-row img{ width: 64px; height:64px; }
+  </style>
+
+</block>
+<block name="script">
+
+<!--   <script>
+    C.WECHAT_CONFIG = {:get_jsapi_config('chooseImage,uploadImage')};
+    seajs.use('wechat', function(wechat){
+      $('.Z_upload_avatar').on('tap', function(){
+        wechat.chooseImage(function(source_path, server_id){
+          $('.Z_upload_add').remove();
+          $('.Z_upload_avatar').html('<img src="'+ source_path +'" alt="">');
+          $('input[name="avatar_serverid"]').val(server_id);
+        });
+      });
+    });
+  </script> -->
+</block>

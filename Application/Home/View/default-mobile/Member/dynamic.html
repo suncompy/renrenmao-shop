@@ -1,0 +1,354 @@
+<extend name="Base/common"/>
+<block name="header">
+    <h1 class="title" style=" z-index:1"> {:C('WEB_SITE_TITLE')}，震撼上线！</h1>
+    <link rel="stylesheet" href="__CSS__/qr/showmsg.css">
+    <link rel="stylesheet" href="__CSS__/qr/mbao.css">
+    <link rel="stylesheet" href="__CSS__/qr/iconfonts.min.css">
+    <link rel="stylesheet" href="__CSS__/qr/iconfont.css">
+    <link rel="stylesheet" href="/Public/Home/default-mobile/css/style.min.css">
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+</block>
+
+
+<block name="body">
+<script type="text/javascript" src="/Public/Home/default-mobile/js/config.js"></script>
+
+<div class="jiantou">
+    <img src="__IMG__/qr/jiantou.png"/>
+</div>
+<ul class="wap_nav" style="z-index:100;">
+    <li class="l" style="top:9px;"><a href="javascript:history.go(-1);" id="return_last_page_nav"><i class="icon icon-arrow-left"></i></a></li>
+    <li class="top_title">{:C('WEB_SITE_TITLE')}，震撼上线！</li>
+    <php>if(!is_weixin()){</php>
+    <li class="r" style="top:9px; color:#fff;  right:10px;">
+        <a href="javascript:;" onclick="$('.fixed-box').show();"><i class="icon icon-fenxiang" style="color:#fff; font-size:20px;"></i></a>
+    </li>
+    <php>}else{</php>
+    <li class="r" style="top:9px; color:#fff;  right:10px;">
+        <a href="javascript:$.ui.share.init(); "><i class="icon icon-fenxiang" style="color:#fff; font-size:20px;"></i></a>
+    </li>
+    <php>}</php>
+
+</ul>
+<style type="text/css">
+    .er-code canvas{ width: 218px !important; height: 218px !important;}
+    .top_title{color:#FFF; text-align:center; line-height:45px; font-size:16px;}
+</style>
+<div class="bg" style="height: 100%;">
+<section class="show">
+    <div id="user-msg">
+        <div class="user-con">
+            <div class="photo"><img src="#"/></div>
+            <p><span></span> <em> 推荐你加入{:C('WEB_SITE_TITLE')}！</em></p>
+        </div>
+    </div>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/1/z.png"/>
+            <div class="er-code qrcode"><img src="__ROOT__/Uploads/QRcode/WechatQrcode/{:md5($data_union['qrcode_url'])}.png"/> </div>
+        </li>
+        <li>
+            <img src="__IMG__/qr/1/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/1/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/2/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/2/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/2/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/3/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/3/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/3/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/4/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/4/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/4/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/5/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/5/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/5/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/6/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/6/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/6/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/7/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/7/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/7/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/8/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/8/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/8/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/9/z.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/9/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/9/2.png"/>
+        </li>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>
+            <img src="__IMG__/qr/top-bt.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/yuan.png"/>
+        </li>
+        <li class="code">
+            <div class="qrcode"><img src="__IMG__/qr/10/z.png"/></div>
+            <p>长按识别下载</p>
+        </li>
+        <li>
+            <img src="__IMG__/qr/10/1.png"/>
+        </li>
+        <li>
+            <img src="__IMG__/qr/10/2.png"/>
+        </li>
+    </ul>
+</section>
+</div>
+<script src="http://topics-resource.stblcdn.com/stbl-cctv/jquery-2.1.1.min.js"></script>
+<script src="__JS__/qr/tool.js"></script>
+<script src="__JS__/qr/jquery.qrcode.min.js"></script>
+<script src="__JS__/qr/index.js?v=07181"></script>
+<script src="__JS__/module/common.js"></script>
+
+
+
+<!-- 弹出分享框 -->
+<div class="fixed-box" style="display:none">
+    <div class="fixed-btom">
+        <h2>分享给朋友</h2>
+        <php>if(is_app()){</php>
+        <ul id="ckepop" class="fixed-jiathis">
+            <li><a class="fx-weixin" title="微信" href="javascript:common.shareByApp('wechat_share',{$uid});"></a></li>
+            <li><a class="fx-pengyouq" title="朋友圈" href="javascript:common.shareByApp('pyq_share',{$uid});"></a></li>
+            <li><a class="fx-cqq" title="QQ" href="javascript:common.shareByApp('qq_share',{$uid});"></a></li>
+            <li><a class="fx-tsina" title="新浪" href="javascript:common.shareByApp('sina_share',{$uid});"></a></li>
+        </ul>
+        <style type="text/css">
+            .fixed-btom #ckepop li{ width: 25% !important; }
+        </style>
+        <php>}else{</php>
+        <ul id="ckepop" class="fixed-jiathis">
+            <li><a class="jiathis_button_qzone " title="QQ空间"></a></li>
+            <li><a class="jiathis_button_tsina" title="新浪"></a></li>
+            <li><a class="jiathis_button_tqq" title="腾讯微博"></a></li>
+        </ul>
+        <php>}</php>
+        <p class="fixed-hide" onclick="$('.fixed-box').hide();">取消</div>
+</div>
+
+</div>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js" charset="utf-8"></script>
+
+
+
+
+</block>
+
+
+<block name="script">
+    <script type="text/javascript">
+        seajs.use(['common', 'wechat'], function(common, wechat){
+            var url = window.location.href;
+            common.loadmore(url);
+            wechat.init();
+            //隐藏底部空隙
+            $('.Z_shop_set').click(function(){
+                $.ui.select('#Z_choose_menu');
+            });
+            $('.content').css('paddingBottom', 0);
+        });
+
+        var userid = {$uid};
+        $.ajax({
+            url: "http://demo.mbaovip.com/Member/getUserBaseInfo/uid/"+userid,
+            type: "get",
+            success: function (data) {
+                if(data.status==-1){
+                    Msg.windowAlert("用户不存在！");
+                    return
+                }else if(data.status==-2){
+                    Msg.windowAlert("用户不是推广者！");
+                    return
+                }else if(data.status==-3){
+                    Msg.windowAlert("推广者被禁用！");
+                    return
+                }
+                var html='<div class="user-con"><div class="photo"><img src="'+data.info.avatar+'"/></div> <p><span>'+data.info.nickname+'</span> <br/><em> 推荐你加入极铺商城！</em></p> </div>'
+                $("#user-msg").html(html);
+                var $qrcode=$(".qrcode");
+                /*  for(var i=0;i<$qrcode.length;i++){
+                 $qrcode.eq(i).qrcode({text: data.info.qrcode_url});
+                 }*/
+            }
+            /*  error: function () {
+             console.log("网络错误")
+             }*/
+        })
+
+
+
+
+
+    </script>
+</block>

@@ -1,0 +1,97 @@
+<extend name="Base/common"/>
+<block name="header">
+    {:hook('mobileTopNav',array('title'=>$meta_title))}
+</block>
+
+<block name="body">
+  <div class="text-warning">
+    会员成功邀请一位好友注册，即可奖励<em class="text-danger">{:C('INVITE_REWARD_MONEY')}元</em>（每天限制{:C('INVITE_MAX_PEOPLE')}人）。
+  </div>
+  <div class="content-padded">
+    <notempty name="lists">
+      <volist name="lists" id="vo">
+        <div class="mb invite text-lists">
+         <img class="img" src="{$vo.reg_uid|getAvatar}" >
+          <div class="invite-t">  
+            <span class="pull-left">
+              邀请用户：{$vo.reg_uid|get_nickname}
+            </span>
+            <em class="pull-right">奖励：<span class="text-danger">+{$vo.reward_amount}</span> 元</em>
+          </div>
+          <div class="invite-b">          
+            <span class="pull-left">
+            	备注：<eq name="vo.reward_status" value="1">
+                    <span class="resta-y">奖励已到账</span>
+                    <else/>
+                    <span class="resta-n"> 奖励未到账</span>
+                    </eq>
+            </span>
+            <em class="pull-right">{$vo.create_time|time_format}</em>
+          </div>
+        </div>
+      </volist>
+    <else />
+      <p class="list-empty">暂无邀请记录...</p>
+    </notempty>
+  </div>
+    <!-- 弹出分享框 -->
+    <div class="fixed-box" style="display:none">
+        <div class="fixed-btom">
+            <h2>分享给朋友</h2>
+            <php>if(is_app()){</php>
+            <ul id="ckepop" class="fixed-jiathis">
+                <li><a class="fx-weixin" title="微信" href="javascript:common.shareByApp('wechat_share',{$uid});"></a></li>
+                <li><a class="fx-pengyouq" title="朋友圈" href="javascript:common.shareByApp('pyq_share',{$uid});"></a></li>
+                <li><a class="fx-cqq" title="QQ" href="javascript:common.shareByApp('qq_share',{$uid});"></a></li>
+                <li><a class="fx-tsina" title="新浪" href="javascript:common.shareByApp('sina_share',{$uid});"></a></li>
+            </ul>
+            <php>}else{</php>
+            <ul id="ckepop" class="fixed-jiathis">
+                <li><a class="jiathis_button_qzone " title="QQ空间"></a></li>
+                <li><a class="jiathis_button_tsina" title="新浪"></a></li>
+                <li><a class="jiathis_button_tqq" title="腾讯微博"></a></li>
+            </ul>
+            <php>}</php>
+            <p class="fixed-hide" onclick="$('.fixed-box').hide();">取消</div>
+            <style type="text/css">
+              .fixed-btom #ckepop li{ width: 25% !important; }
+             </style>
+    </div>
+  <div class="bar bar-standard bar-footer-secondary">
+      <php>if(!is_weixin()){</php>
+      <button class="btn btn-outlined btn-primary btn-block show_box" style=" color:#fff"  onclick="$('.fixed-box').show();">我要邀请小伙伴</button>
+      <php>}else{</php>
+      <button onclick="$.ui.share.init();" class="btn btn-outlined btn-primary btn-block" style=" color:#fff">我要邀请小伙伴</button>
+      <php>}</php>
+  </div>
+    <if condition="!is_weixin() AND !is_app()">
+        <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js" charset="utf-8"></script>
+        <else/>
+        <script></script>
+    </if>
+</block>
+<block name="script">
+  <script type="text/javascript">
+    seajs.use('wechat', function(wechat){
+      wechat.init();
+    });
+
+//    $(".show_box").click(function(){
+//        $(".fixed-box").show();
+//    });
+//    //$(document).ready(function(){
+//    $(".fixed-hide").click(function(){
+//        $(".fixed-box").hide();
+//    });
+    <php>if(!is_weixin() and !is_app()){</php>
+    var jiathis_config = {
+        url:"{$invite_path}",
+        // url:"demo.jipukeji.com",
+        title:"我发现一个特别好玩的分销商城，快来点开链接注册吧！",
+        summary:"{$data.intro}"
+        //pic:"{$logo}",
+    }
+    <php>}</php>
+  </script>
+</block>

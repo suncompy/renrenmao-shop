@@ -1,0 +1,103 @@
+<extend name="Base/share" />
+<block name="header">
+<script type="text/javascript" src="/Public/Home/default-mobile/js/lib/seajs/sea.2.3.0.js"></script>
+<script charset="utf-8" async="" src="/Public/Home/default-mobile/js/lib/zepto/zepto.js"></script>
+<script charset="utf-8" async="" src="/Public/Home/default-mobile/js/module/core.js"></script>
+    <link rel="stylesheet" href="__CSS__/sdpto/showmsg.css">
+    <link rel="stylesheet" href="__CSS__/sdpto/mbao.css">
+    <link rel="stylesheet" href="__CSS__/style.min.css">
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+ <php>if(is_app()){</php>
+    <header class="bar bar-nav post-retve" style="background-color:#2d8701;color:#fff">
+        <a href="javascript:history.go(-1);" id="return_last_page_nav" style="position: absolute; left: -12px; top: 9px; color:#fff" ><i class="icon icon-arrow-left" style="color:#fff"></i></a>
+        <h1 class="title" style="z-index:1;color:#fff;">推广二维码</h1>
+        <php>$uid = I('get.uid');$id=UID;</php>
+        <a href="javascript:common.shareByApp({$uid});" style="position: absolute; right: 12px; top: 0px; color:#fff" ><i class="icon icon-fenxiang" style="color:#fff"></i></a>
+    </header>
+<php>}</php>
+</block>
+<block name="body">
+<div class="bg">
+    <div class="con"><img src="__IMG__/sdpto//bg.png"/></div>
+    <div class="container">
+        <div class="logo">
+            <img src="__IMG__/sdpto//logo.png"/>
+        </div>
+        <div class="user_box">
+            <div class="photo"><img class="img" src="{$minfo['avatar']}" ></div>
+            <p class="nickname">{$minfo['nickname']}</p>
+            <div class="ui_code">推广码： <span>{$invite_code}</span></div>
+            <div class="er_code qrcode"><img style="" src="__ROOT__/Uploads/QRcode/WechatQrcode/{:md5($data_union['qrcode_url'])}.png"></div>
+        </div>
+        <div class="diwen"><img src="__IMG__/sdpto/bgdi.png"/></div>
+        <php>if(is_app()){ if($uid == $uids){ </php>
+        <div class="bt"><span></span>如何推广联盟？步骤如下：</div>
+        <ul class="list">
+            <li>
+                <div class="l_text">第一步</div>
+                <p class="r_text">转发您的推广联盟二维码给好友；</p>
+            </li>
+            <li>
+                <div class="l_text">第二步</div>
+                <p class="r_text">从您转发的二维码图片进入极铺商城并注册成为会员的用户，系统将自动锁定您成为该用户的推荐人，并获得推荐奖励；当该用户在极铺商城中购买任何商品，您也会获得相应的奖励；</p>
+            </li>
+            <li>
+                <div class="l_text">第三步</div>
+                <p class="r_text">您可以在个人中心查看【推广联盟】和【奖金明细】，客户确认收货后奖金方可提现。 </p>
+            </li>
+        </ul>
+        <div class="text"><p>说明：二维码图片中带有独有的推荐码，您的好友识别二维码并注册极铺商城后，系统会自动检测并记录客户关系。如果您的好友已被其他人抢先发展成为极铺注册会员，您将无法成为推荐人。</p></div>
+        <php>}  }else{ if(($uid != $uids) || $share_param){  </php>
+
+        <php>}else{</php>
+        <div class="bt"><span></span>如何推广联盟？步骤如下：</div>
+        <ul class="list">
+            <li>
+                <div class="l_text">第一步</div>
+                <p class="r_text">转发您的推广联盟二维码给好友；</p>
+            </li>
+            <li>
+                <div class="l_text">第二步</div>
+                <p class="r_text">从您转发的二维码图片进入极铺商城并注册成为会员的用户，系统将自动锁定您成为该用户的推荐人，并获得推荐奖励；当该用户在极铺商城中购买任何商品，您也会获得相应的奖励；</p>
+            </li>
+            <li>
+                <div class="l_text">第三步</div>
+                <p class="r_text">您可以在个人中心查看【推广联盟】和【奖金明细】，客户确认收货后奖金方可提现。 </p>
+            </li>
+        </ul>
+        <div class="text"><p>说明：二维码图片中带有独有的推荐码，您的好友识别二维码并注册极铺商城后，系统会自动检测并记录客户关系。如果您的好友已被其他人抢先发展成为极铺注册会员，您将无法成为推荐人。</p></div>
+        <php>}}</php>
+    </div>
+</div>
+<script src="__JS__/module/common.js"></script>
+<php>if(!is_weixin() and !is_app()){</php>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js" charset="utf-8"></script>
+<php>}</php>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        seajs.use(['common', 'wechat'], function(common, wechat){
+            var url = window.location.href;
+            common.loadmore(url);
+            wechat.init();
+            //隐藏底部空隙
+            $('.Z_shop_set').click(function(){
+                $.ui.select('#Z_choose_menu');
+            });     
+            $('.content').css('paddingBottom', 0);
+        });
+
+        <php>if(!is_weixin() and !is_app()){</php>
+           // var intro ="{$data.intro}";
+            var jiathis_config = {
+                        url:"{$url}",
+                       // title:$(".title").html(),
+                        title:"{$meta_share.title}",
+                        summary:"{$meta_share.desc}"
+                        //pic:"{$logo}",
+                    }
+                    <php>}</php>
+    </script>
+</block>

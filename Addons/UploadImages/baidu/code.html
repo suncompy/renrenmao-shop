@@ -1,0 +1,80 @@
+<php>$rand_key = time() . mt_rand(10000,99999);</php>
+<div class="input-row set-avatar">
+    <label style="padding:32px 13px">{$param.text|default='头像'}：</label>
+    <a href="javascript:;" class="icon btn-upload Z_upload_avatar" id="filePicker_{$rand_key}">
+        <!-- 上传成功后，i标签替换为图片 -->
+        <img <notempty name='param.path'> src="{:get_image_thumb($param['path'], 200, 200)}" </notempty> alt="" class="img_code">
+        <i class="icon"></i>
+        <notempty name='param.path'><span class="icon icon-close Close" id="icon_close" style="z-index:998"></span></notempty>
+        <input type='hidden'  id="img_val" name='{$param.name}' value='{$param.path}' >
+    </a>
+    <span class="text-info tips"></span>
+</div>
+<style type="text/css">
+    .set-avatar > .btn-upload{ position: relative; }
+    .webuploader-pick{ position: absolute; top: -77px; }
+    .webuploader-pick div:nth-child(2){ top: -10px}
+    .webuploader-pick span.icon-close{ position: absolute; right: -8px; top: -8px; background-color: #fff;  z-index: 1000;width: 26px; height: 26px; display: inline-block; line-height: 26px; color: #666;    text-align: center; font-size: 14px; border:1px solid #eee;  border-radius: 100%;}
+    .webuploader-pick{ overflow: auto; }
+</style>
+<link rel="stylesheet" type="text/css" href="__JS__/webuploader/webuploader.css">
+<script type="text/javascript">
+    var values = $('.img_code').attr('src');
+    if(values == '' || values == undefined){
+        $('.img_code').hide();
+    }
+    function initWebuploader2(){
+            // 初始化Web Uploader
+            var uploader = WebUploader.create({
+                // 选完文件后，是否自动上传。
+                auto: true,
+                // swf文件路径
+                swf: "__JS__/webuploader/Uploader.swf",
+                // 文件接收服务端。
+                server: "{:U('File/uploadPicture' , array('compress_h' =>'200' , 'compress_w' =>'200') )}",
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: {
+                    id:"#filePicker_{$rand_key}",
+                    multiple :false,
+                },
+                //配置压缩图片选项
+                compress: false,
+                // 只允许选择图片文件。
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/jpg,image/jpeg,image/png',
+                },
+                fileNumLimit :1,
+            });
+            var root_path = "__ROOT__" ;
+            //上传成功执行
+            uploader.on( 'uploadSuccess' , function( file ,response) {
+                if(response.status == 0){
+                    updateAlert(response.info);
+                }else{
+                    $('.img_code').attr('src' ,root_path+response.path);
+                    $('.img_code').show();
+                    $('.Close').show();
+                    $('#img_val').val(response.id);
+                    $.ui.alert("上传成功");
+                }
+            });
+            //上传完成
+            uploader.on("uploadFinished", function () {
+                uploader.destroy();
+                initWebuploader2();
+            });
+            $('.Close').bind('click' ,function(){
+                $(this).hide();
+                $('.img_code').hide();
+                $('.img_code').attr('src' ,'');
+                $('#img_val').val('');
+                //uploader.reset();
+            });
+    }
+    initWebuploader2();
+
+</script>
+ 

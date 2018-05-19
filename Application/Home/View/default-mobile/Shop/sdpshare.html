@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <title>全新移动正品购物轻创业平台，无忧推广，打造你的个性小店！</title>
+    <link rel="stylesheet" href="__CSS__/sdpto/showmsg.css">
+    <link rel="stylesheet" href="__CSS__/sdpto/mbao.css">
+    <link rel="stylesheet" href="__CSS__/style.min.css">
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+</head>
+<body>
+<!-- 分享按钮 -->
+<script type="text/javascript" src="/Public/Home/default-mobile/js/lib/seajs/sea.2.3.0.js"></script>
+<script type="text/javascript" src="/Public/Home/default-mobile/js/config.js"></script>
+<script charset="utf-8" async="" src="/Public/Home/default-mobile/js/lib/zepto/zepto.js"></script><script charset="utf-8" async="" src="/Public/Home/default-mobile/js/module/core.js"></script>
+
+
+<div class="bg">
+    <div class="con"><img src="__IMG__/sdpto//bg.png"/></div>
+    <div class="container">
+        <div class="logo">
+            <img src="__IMG__/sdpto//logo.png"/>
+        </div>
+        <div class="user_box">
+            <div class="photo"><img class="img" src="{$minfo['avatar']}" ></div>
+            <p class="nickname">{$minfo['nickname']}</p>
+            <div class="ui_code">我的推广码： <span>{$invite_code}</span></div>
+            <div class="er_code qrcode"><img style="" src="__ROOT__/Uploads/QRcode/WechatQrcode/{:md5($data_union['qrcode_url'])}.png"></div>
+        </div>
+        <div class="diwen"><img src="__IMG__/sdpto/bgdi.png"/></div>
+       
+    </div>
+
+</div>
+
+<script src="http://topics-resource.stblcdn.com/stbl-cctv/jquery-2.1.1.min.js"></script>
+</body>
+</html>

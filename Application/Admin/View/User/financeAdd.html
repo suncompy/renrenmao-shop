@@ -1,0 +1,37 @@
+<form action="{:U()}" method="POST" class="rechange-add-form">
+  <input type="hidden" value="{$member.uid}" name="uid"/>
+  <div class="boxpage-div">
+    <div class="boxpage-line">
+      <label class="fl">用户：</label>
+      <div class="fl">{$member.uid|get_nickname}</div>
+    </div>
+    <if condition="$member.shop_name neq ''">
+    <div class="boxpage-line">
+      <label class="fl">分销店铺名称：</label>
+      <div class="fl"><span class="text-danger">{$member.shop_name}</span></div>
+    </div>
+    </if>
+    <div class="boxpage-line">
+      <label class="fl">操作类型：</label>
+      <div class="fl">
+        <select name="type">
+          <if condition="$member.shop_name neq ''"><option value="sdp_order">分销返现【补】</option></if>
+          <option value="union_order">推广联盟返现【补】</option>
+        </select>
+      </div>
+    </div>
+    <div class="boxpage-line">
+      <label class="fl">操作金额：</label>
+      <div class="fl">
+        <input type="text" name="amount" class="text input-2x" value="" autocomplete="off" placeholder="请输入金额"> 元
+      </div>
+    </div>
+    <div class="boxpage-line boxpage-menu">
+      <button class="btn ajax-post" data-target-form="rechange-add-form">确定</button>
+    </div>
+  </div>
+</form>
+
+<script>
+  ajaxpost.init('.rechange-add-form');
+</script>

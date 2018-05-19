@@ -1,0 +1,32 @@
+<extend name="Base/common"/>
+
+<block name="body">
+  <link href="__CSS__/marketing.css" rel="stylesheet">
+  <div class="activity" <neq name="data.backcolor" value="">style="background:{$data['backcolor']}"</neq>>
+    <notempty name="data.src">
+      <div class="banner">
+        <img src="__ROOT__{:get_image_thumb($data['src'], 720, 257)}" alt="{$data['name']}">
+      </div>
+    </notempty>
+    <notempty name="data.items_list">
+      <div class="item-list item-list-grid" <neq name="data.backcolor" value="">style="background:{$data['backcolor']}"</neq>  id="Z_load_itemlist">
+       <include file='joinList' />
+      </div>
+    <else/>
+      <p class="list-empty">暂无商品</p>
+    </notempty>
+    <notempty name="data.content">
+      <div class="info">
+        {$data.content}
+      </div>
+    </notempty>
+  </div>
+</block>
+<block name="script">
+<script type="text/javascript">
+    seajs.use(['common','module/category'], function(common,category){
+      var url = "{:U('/Activity/detail',array('id' => $id))}";
+      common.loadmore(url);
+    });
+  </script>
+</block>

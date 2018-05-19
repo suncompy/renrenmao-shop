@@ -1,0 +1,46 @@
+<extend name="Base/common"/>
+<block name="header">
+    {:hook('mobileTopNav',array('title'=>$meta_title))}
+</block>
+<block name="body">
+    <div class="shop">
+        <!-- 已添加商品列表 -->
+        <div class="item-list clearfix" id="Z_load_itemlist">
+            <notempty name="lists">
+                <volist name="lists" id="vo">
+                    <div class="item Z_item_list" data-href="{:U('Item/detail', array('id' => $vo['id']))}">
+                        <div class="inner">
+                            <a href="{$vo['slide_url']}"><img src="{:get_image_thumb($vo['pic_url'], 400, 400)}" class="lazy" alt="{$vo.slide_url}"></a>
+                            <if condition="in_array($vo['id'], $shop_data['banners'])">
+                                <a href="javascript:;" class="shop_item_btn btn-act Z_item_remove" data-itemid="{$vo.id}"><i class="icon icon-close"></i></a>
+                                <else/>
+                                <a href="javascript:;" class="shop_item_btn btn-act Z_item_add" data-itemid="{$vo.id}"><i class="icon icon-add"></i></a>
+                            </if>
+                        </div>
+                    </div>
+                </volist>
+                <script>
+                    C.has_more = '{$_hasmore}';
+                </script>
+                <else/>
+                <div class="content-padded text-center">
+                    空空如也
+                </div>
+            </notempty>
+        </div>
+    </div>
+</block>
+
+<block name="footer">
+
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        seajs.use(['common', 'shop'], function(common, shop){
+            var url = window.location.href;
+            common.loadmore(url);
+            shop.changeBanner();
+        });
+    </script>
+</block>

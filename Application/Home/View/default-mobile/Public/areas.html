@@ -1,0 +1,42 @@
+<div class="control-group area" >
+    <News:area name='provinces'/>
+    <select name="audit_data[prov]">
+        <empty name='data.province'>
+            <option disabled selected style='display:none;'>省</option>
+        </empty>
+        <foreach name='provinces' item='v'>
+
+            <option value='{$v.id}' <if condition='$v["id"] eq $audit_data["prov"]'>selected</if> >{$v.title}</option>
+        </foreach>
+    </select>
+    <notempty name='audit_data.prov'>
+        <News:area name='districts' pid='$audit_data["prov"]'/>
+    </notempty>
+    <select name="audit_data[city]">
+        <notempty name='districts'>
+            <foreach name='districts' item='v'>
+                <option value='{$v.id}' <if condition='$v["id"] eq $audit_data["city"]'>selected</if> >{$v.title}</option>
+            </foreach>
+            <else />
+            <option>市</option>
+        </notempty>
+    </select>
+    <notempty name='audit_data.city'>
+        <News:area name='citys' pid='$audit_data["city"]'/>
+    </notempty>
+    <select name="audit_data[area]">
+        <notempty name='citys'>
+            <foreach name='citys' item='v'>
+                <option value='{$v.id}' <if condition='$v["id"] eq $audit_data["area"]'>selected</if> >{$v.title}</option>
+            </foreach>
+            <else />
+            <option>区</option>
+        </notempty>
+    </select>
+</div>
+
+<script>
+    seajs.use('area', function(area){
+        area.web();
+    });
+</script>

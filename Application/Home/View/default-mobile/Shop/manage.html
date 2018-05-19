@@ -1,0 +1,63 @@
+<extend name="Base/common"/>
+<block name="header">
+<php>if(!is_weixin()){</php>
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+<php>}</php>
+</block>
+
+<block name="body">
+  <if condition="empty($data['name']) OR empty($data['logo'])">
+    <p class="alert alert-success">
+      <i class="icon icon-info"></i> 您的分销资质已通过审核，赶紧完善您的店铺信息吧！
+    </p>
+  </if>
+  <div class="shop">
+    <form action="__SELF__" method="POST" class="input-group manage">
+      <div class="input-row">
+        <label>店铺名称：</label>
+        <input type="text" name="name" value="{$data.name}" placeholder="请您输入店铺名称">
+      </div>
+      <div class="input-row">
+        <label>店铺简介：</label>
+        <input type="text" name="intro" value="{$data.intro}" placeholder="请您输入店铺简介">
+      </div>
+
+      {:hook('uploadImages', array('name' => 'logo_id','text' => '店铺头像', 'tpl' => 'baidu/one','path' => $data['logo'] ))}
+      
+      {:hook('uploadImage', array('name' => 'wap_pic_id','text' => '店铺背景', 'tpl' => 'upload','path' => $data['wap_pic'] ))}
+
+      <!--店长微信二维码-->
+      {:hook('uploadImages', array('name' => 'shopper_code','text' => '店长二维码', 'tpl' => 'baidu/code','path' => $data['shopper_code'] ))}
+
+      <div class="content-padded">
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="hidden" name="avatar_serverid" value="">
+        <button class="btn btn-block btn-positive">保存店铺信息</button>
+        <a href="{:U('Shop/detail', array('uid' => UID))}" class="btn btn-block">查看我的店铺</a>
+      </div>
+    </form>
+  </div>
+</block>
+<block name="script">
+  <style type="text/css">
+  .Z_upload_avatar .webuploader-pick { margin-top: 0px;padding: 0px; overflow: inherit;}
+  .webuploader-pick{ top: -64px; padding: 0;overflow: inherit;}
+  </style>
+  <script>
+   seajs.use('',function(){
+    $('.btn-positive').on('click',function(){
+          var name = $('input[name=name]').val(),
+              intro = $('input[name=intro]').val();
+              if(name == ''){
+                $.ui.alert('请输入店铺名称！');
+                return false;
+              }
+              if (intro == ''){
+                $.ui.alert('请输入店铺简介！');
+                return false;
+              }
+          
+        });
+   });
+  </script>
+</block>

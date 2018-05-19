@@ -1,0 +1,107 @@
+<php>$rand_key = time() . mt_rand(10000,99999);</php>
+<div id="uploader-demo" class="hide">
+    <!--用来存放item-->
+    <div id="fileList" class="uploader-list uploadify-button " style="height: 36px; line-height: 36px; width: 80px;"></div>
+    <div id="upload_picture_{$rand_key}" style="top: -16px;
+    left: 19px;
+    width: 80px;
+    height: 36px;">选择图片</div>
+</div>
+<div class="upload-img-box dragsort">
+    <div style="display: none;"></div><!-- 新增一个隐藏层，解决无图片的时候初始化图片拖拽排序插件失败的问题 -->
+    <notempty name="param.images">
+        <volist name="param.images" id="vo">
+            <div class="upload-pre-item" id="item_{$vo['id']}">
+                <input type="hidden" name="{$param.name}[]" value="{$vo['id']}" class="icon" />
+                <img src="__ROOT__{$vo['path']}" data-id="{$vo['id']}" title="点击显示大图，拖动图片可以对图片进行排序。" />
+                <span class='btn-close delPic' title='删除图片'></span>
+                <label class="set" for="default_{$vo['id']}"><input type="radio" name="thumb" class="thumb" value="{$vo['id']}" id="default_{$vo['id']}" <notempty name="param.thumb"><eq name="vo.id" value="$param.thumb">checked="checked"</eq><else/><eq name="key" value="0">checked="checked"</eq></notempty>> 设为封面</label>
+            </div>
+        </volist>
+    </notempty>
+</div>
+<style>
+    .controls{ position: relative;}
+    .hidhen{position: absolute; opacity: 0; filter:Alpha(opacity=0); }
+</style>
+<php>$root = SITE_URL;</php>
+<link rel="stylesheet" type="text/css" href="__JS__/webuploader/webuploader.css">
+<script type="text/javascript" src="__JS__/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__JS__/webuploader/webuploader.js"></script>
+<script type="text/javascript" src="__JS__/jquery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/dragsort-0.5.2/jquery.dragsort-0.5.2.js"></script>
+<script type="text/javascript" src="__JS__/dragsort-0.5.2/jquery.dragsort-0.5.2.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var root_path = '{$root}';
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: "__JS__"+'/webuploader/Uploader.swf',
+            // 文件接收服务端。
+            server: "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: {
+                id:"#upload_picture_{$rand_key}",
+
+            }, 
+            compress: false,
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'jpg,jpeg,png',
+                mimeTypes: 'image/jpg,image/jpeg,image/png'
+            }
+
+        });
+        uploader.on( 'uploadSuccess' , function( file ,response) {
+            if(response.status == 0){
+                updateAlert(response.info);
+            }else{
+                $('#upload_picture_{$rand_key}').val(response.id);
+                var upload_item = $("<div class='upload-pre-item' id='item_"+response.id+"'></div>");
+                //创建img input close-btn
+                var img_path = $("<input type='hidden' name='{$param.name}[]' class='icon' value='"+response.id+"'/>");
+                src = response.url || '__ROOT__' + response.path;
+                var upload_img = $("<img src=" + src +" title='点击显示大图，拖动图片可以对图片进行排序。' data-id="+response.id+">");
+                var img_del = $("<span class='btn-close delPic' title='删除图片'></span>");
+                var set_thumb = $('<label class="set" for="default_'+response.id+'"><input type="radio" name="thumb" class="thumb" value="'+response.id+'" id="default_'+response.id+'"> 设为封面</label>');
+                //加入到upload-img-box
+                upload_item.append(upload_img);
+                upload_item.append(img_del);
+                upload_item.append(img_path);
+                upload_item.append(set_thumb);
+                $('.upload-img-box').append(upload_item);
+                var obj_thumb = $('input.thumb:checked');
+                if(obj_thumb.length==0){
+                    $(".upload-img-box > div:eq(1) > label > input.thumb").attr("checked",true)
+                }
+                updateAlert('上传成功','alert-success');
+            }
+        });
+
+        //图片拖动排序
+        $(".dragsort").dragsort({
+            dragSelector : "div>img",  // 设置拖动的HTML标签
+            dragEnd : function(){ // 拖动完成的回调函数
+                setThumb();	// 设置封面图片
+            },
+            scrollSpeed:5  // 默认为5，数值越大拖动的速度越快，为0则拖动时页面不会滚动
+        });
+
+        // 设置拖动排序后的第一张图片为封面图片
+        function setThumb(){
+            $(".upload-img-box > div> label > input.thumb").removeAttr("checked");
+            $(".upload-img-box > div:eq(1) > label > input.thumb").attr("checked",true);
+        }
+
+        //删除图片
+        $(document).on("click",".delPic",function(){
+            $(".J-uib-"+ $(this).data('rand') +" input[name='{$param.name}']").val('');
+            $(this).parent().remove();
+            uploader.refresh();
+        });
+    })
+</script>

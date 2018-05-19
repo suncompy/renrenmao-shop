@@ -1,0 +1,42 @@
+<extend name="Base/common"/>
+<block name="header">
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+</block>
+<block name="body">
+<link rel="stylesheet" href="__CSS__/new_style.css?{:time()}">
+  <div class="integral-btn" style="background: #fff;margin-top: 0;padding-top: 3px;">
+    <ul>
+        <li><a href="javascript:;" class="J_coupon_click"><p class="selected">领取优惠券</p></a></li>
+    </ul>
+  </div>
+  <div class="content-padded">
+    <notempty name="lists">
+      <div class="coupon-list" id="Z_load_itemlist">
+        <include file="couponList"/>
+      </div>
+    <else />
+      <p class="list-empty">暂无优惠券！</p>
+    </notempty>
+  </div>
+  <div class="popup J_coupon_bind" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1); display: none;">
+    <div class="linqu">
+        <input type="text" name="number" placeholder="输入优惠券编号" id="J_coupon_number">
+        <a href="javascript:;" class="J_coupon_add">领取</a>
+        <a href="javascript:;" class="btn_fh Z_cancel">返回</a>
+    </div>
+    </div>
+</block>
+
+<block name="script">
+  <script type="text/javascript">
+      seajs.use('user', function(user){
+          user.delCoupon();
+      });
+    (function(){
+      <eq name="_hasmore" value="1">
+        var url = window.location.href;
+        core.loadmore(url);
+      </eq>
+    })();
+  </script>
+</block>

@@ -1,0 +1,60 @@
+<extend name="Base/share"/>
+
+<block name="header">
+<php>if(!is_weixin()){</php>
+    <header class="bar bar-nav post-retve" style="background-color:#2d8701;color:#fff">
+        <a href="javascript:history.go(-1);" id="return_last_page_nav" style="position: absolute; left: -12px; top: 9px; color:#fff" ><i class="icon icon-arrow-left" style="color:#fff"></i></a>
+        <h1 class="title" style=" z-index:1;color:#fff;">联系店长客服微信</h1>
+	</header>
+<php>}</php>
+</block>
+
+<block name="body">
+		<div class="ewm-tp" style="    text-align: center; background: #2d3132;height: 100%;width: 100%;overflow: hidden;margin: 0;padding: 0;position: fixed;padding-top: 20%;">
+		 <img src="{$info['path']}" style="width:80%">
+	</div>
+
+  <!--<div class="sdp-con" >
+		<div class="sdp-main">
+			<dl id="last-div" style="margin-bottom: 16px;">
+				<dt><img class="img" src="{$info['avatar']}" ></dt>
+                <dd>{$info['mobile']}-{$info['nickname']}</dd>
+            </dl>
+			<dl><p style="text-align:left"><span style="padding-right:10px;">四川</span><span>成都</span></p></dl>
+			<!-<img style=" padding:10px 0; background-color:#fff;" src="http://demo.mbaovip.com/Uploads/QRcode/WechatQrcode/abcced5095ec86520f6eed4b68f87da4.png">
+            <img style=" padding:10px 0; background-color:#fff;" src="{$info['path']}">
+
+            <p>扫一扫上面的二维码图案，加我微信</p>
+		</div>
+	</div>
+	<style type="text/css">
+		.sdp-con{text-align:center;vertical-align: middle;margin-top:20px;}
+		.sdp-main{ width: 90%; padding:10px 20px;margin: 0 auto; border-radius:5px;}
+		.sdp-main dl{ width:100%; padding-bottom: 10px; }
+		.sdp-main{ padding:10px; background-color: #fff; }
+		.sdp-main dt{ float: left; margin-right: 15px; }
+		.sdp-main dl img{ float: left;width: 14vw; height:14vw;  border-radius: 5px;}
+		.sdp-main dl dd{ float: left;  color: #000; font-size:16px; font-weight: 400;}
+		.p{ width: 70%; text-align: center; color: #fff; background-color:#2d8701; display: block;padding: 13px 0; margin:20px auto 10px auto; border-radius:0px;font-size: 16px;}
+		.p span{color: #fff}
+</style>-->
+</block>
+
+<block name="foot"></block>
+<block name="script">
+    <script type="text/javascript">
+        seajs.use(['common', 'wechat'], function(common, wechat){
+            var url = window.location.href;
+            common.loadmore(url);
+            wechat.init();
+            //隐藏底部空隙
+           /* $('.Z_shop_set').click(function(){
+                $.ui.select('#Z_choose_menu');
+            });
+            $('.content').css('paddingBottom', 0);*/
+        });
+
+        //});
+    </script>
+
+</block>

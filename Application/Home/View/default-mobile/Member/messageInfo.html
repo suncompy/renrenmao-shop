@@ -1,0 +1,29 @@
+<extend name="Base/common"/>
+<block name="header">
+    <php>if(!is_weixin()){</php>
+    {:hook('mobileTopNav',array('title'=>$meta_title))}
+    <php>}else{</php>
+
+    <php>}</php>
+</block>
+<block name="body">
+     
+        <div class="">
+            <div class="message-modal-content">
+                <a href="javascript:;" id="Z_message_delete"><i class="icon icon-remove" id="icon_url" data-url="{$data['url']}"></i></a>
+                <h3 class="Z_modal_title" data-id="{$data['id']}">{$data['title']} </h3>
+                <p class="Z_modal_desc">时间：2015-12-14 13:45:32</p>
+                <div class="Z_modal_content">{$data['content']}</div>
+            </div>
+        </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        seajs.use(['common', 'message'], function(common, message){
+            var url = window.location.href;
+            common.loadmore(url.split('#')[0]);
+            message.showDetail();
+            message.delete();
+        });
+    </script>
+</block>

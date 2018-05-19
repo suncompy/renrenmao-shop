@@ -1,0 +1,163 @@
+<extend name="Base/common"/>
+
+<block name="header">
+<php>if(is_app()){</php>
+    <header class="bar bar-nav post-retve">
+        <a href="javascript:history.go(-1);" id="return_last_page_nav" style="position: absolute; left: -12px; top: 9px;" ><i class="icon icon-arrow-left"></i></a>
+        <h1 class="title" style=" z-index:1">我的店铺</h1>
+  </header>
+<php>}</php>
+</block>
+<block name="body">
+    <!-- 店铺幻灯 -->
+    {:hook('advertise', array('where' => 'tid = 4 AND status = 1', 'num' => 8, 'tpl' => 'theme2'))}
+    <!--分销店铺新增功能-->
+    <div class="store-banner">
+     <a href="javascript:;">
+      <notempty name="banner">
+        <img src="{:get_image_thumb($banner, 414, 200)}" alt="">
+      <else />
+        <img src="{:get_cover(C('SDP_WAP_BANNER'),'path')}">
+      </notempty>
+     </a>
+     <h3><notempty name="meta_title">{$meta_title|get_short=12}<else/>{:C('WEB_SITE_TITLE')}</notempty><span></span></h3>
+    </div> 
+    <div class="shop-info">
+      <div class="shop-photos">
+         <if condition="$data.uid eq UID">
+          <a href="{:U('Member/sdp')}">
+        <else />
+           <a href="javascript:;">
+        </if>
+          <notempty name="data.logo">
+              <img src="{:get_image_thumb($data['logo'], 200, 200)}" class="avatar" alt="">
+              <else />
+              <img src="__IMG__/avatar-default.png" class="avatar" alt="">
+          </notempty>
+        </a>
+      </div>
+      <ul class="info-number">
+     <if condition=" $uid eq $uids ">
+        <else/>
+         <if condition="!$shopper_code">
+             <style>.shop-info .info-number li{width: 50%;}</style>
+         </if>
+     </if>
+          <li>
+            <a href="javascript:;"><p>{$item_count}</p>
+            <span>全部商品</span></a>
+          </li>
+          <li>
+            <php>if(is_weixin()){</php>
+              <a href="javascript:$.ui.share.init();"><i class="icon icon-fenxiang"></i>
+            <php>}elseif(is_app()){</php>
+               <a href="javascript:common.shareByApp({$uid});"><i class="icon icon-fenxiang"></i>
+            <php>}else{</php>
+              <a href="javascript:;" onclick="$('.fixed-box').show();"><i class="icon icon-fenxiang"></i>
+            <php>}</php>
+              <p>分享店铺</p></a>
+          </li>
+          <li>
+              <if condition=" $uid eq $uids">
+                 <if condition="$shopper_code">
+                     <a href="{:U('Shop/barcode',array('uid'=>$uid))}" class="qrcode-link"><i class="icon icon-kefu" style="font-size:20px;"></i>
+                        <p>客服</p></a>
+                  <else/>
+                     <a href="{:U('Shop/manage')}" class="qrcode-link"><i class="icon icon-kefu" style="font-size:20px;"></i>
+                       <p>客服</p></a>
+                 </if>
+                  <else/>
+                  <if condition="$shopper_code">
+                      <a href="{:U('Shop/barcode',array('uid'=>$uid))}" class="qrcode-link" ><i class="icon icon-kefu" style="font-size:20px;"></i>
+                          <p>客服</p></a>
+                  </if>
+              </if>
+          </li>
+      </ul>
+    </div>
+
+    <div class="shop">
+        <!-- 店铺商品列表 -->
+        <!--<div class="content-padded">
+            <h4>精选优品
+                <if condition="$data['uid'] eq UID">
+                    <small class="pull-right more"><a href="javascript:;" class="Z_shop_set">店铺管理</a></small>
+                </if>
+            </h4>
+        </div>-->
+
+        <notempty name="lists">
+            <div class="item-list clearfix" id="Z_load_itemlist">
+                <include file="Item/itemList"/>
+            </div>
+            <else/>
+            <p class="list-empty">
+			      暂无商品！<br>
+              <if condition="$uid eq $uids">
+			      <a href="{:U('Shop/selectItem')}" class="btn btn-positive">去看看别的</a>
+                <else/>
+                  <a href="{:U('/')}" class="btn btn-positive">去看看别的</a>
+              </if>
+              </p>
+        </notempty>
+    </div>
+    <div id="Z_choose_menu">
+        <div class="modal-select">
+            <ul>
+                <li><a href="{:U('Shop/item')}">商品管理</a></li>
+                <li><a href="{:U('Shop/manage')}">店铺设置</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 弹出分享框 -->
+    <div class="fixed-box" style="display:none">
+        <div class="fixed-btom">
+            <h2>分享给朋友</h2>
+            <style type="text/css">
+              .fixed-btom #ckepop li{ width: 25% !important; }
+             </style>
+            <ul id="ckepop" class="fixed-jiathis">
+                <li><a class="jiathis_button_qzone " title="QQ空间"></a></li>
+                <li><a class="jiathis_button_tsina" title="新浪"></a></li>
+                <li><a class="jiathis_button_tqq" title="腾讯微博"></a></li>
+            </ul>
+            <p class="fixed-hide" onclick="$('.fixed-box').hide();">取消</div>
+    </div>
+    <php>$http_host = $_SERVER['HTTP_HOST']</php>
+    <php>$request_url = $_SERVER['REQUEST_URI']</php>
+    <php>$url=$http_host.$request_url</php>  
+    <php>$logo=$http_host.$data['logo']</php>
+    <if condition="!is_weixin() AND !is_app()">
+     <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+     <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js" charset="utf-8"></script>
+    <else/>
+     <script></script>
+    </if>
+</block>
+<block name="footer"></block>
+<block name="script">
+    <script type="text/javascript">
+        seajs.use(['common', 'wechat'], function(common, wechat){
+            var url = window.location.href;
+            common.loadmore(url);
+            wechat.init();
+            //隐藏底部空隙
+            $('.Z_shop_set').click(function(){
+                $.ui.select('#Z_choose_menu');
+            });
+            $('.content').css('paddingBottom', 0);
+        });
+        <php>if(!is_weixin() and !is_app()){</php>
+            var intro ="{$data.intro}";
+            var jiathis_config = {
+                url:"{$url}",
+                title:$(".title").html(),
+                summary:"{$data.intro}",
+                //pic:"{$logo}",
+            }
+        <php>}</php>
+        //});
+    </script>
+
+
+</block>

@@ -1,0 +1,8 @@
+
+
+ALTER TABLE  `jipu_invoice` ADD  `tax_num` VARCHAR( 30 ) NOT NULL  COMMENT  '单位税号'
+
+ALTER TABLE  `jipu_invoice` ADD  `title_content` VARCHAR( 30 ) NOT NULL COMMENT  '抬头内容'
+
+
+

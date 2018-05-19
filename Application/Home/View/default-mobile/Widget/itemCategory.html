@@ -1,0 +1,19 @@
+<div class="index-category">
+  <notempty name="list">
+    <ul class="flex-box">
+      <volist name="list" id="vo" mod="4">
+        <li>
+          <a href="{:U('Item/search', array('cid' => $vo['id']))}">
+          <notempty name='vo.icon'>
+            <img src="{:get_cover($vo['icon'], 'path')}" />
+          <else />
+            <span class="item item-{$vo.ename}" style="background-color: {$vo.iconbgc}"><i class="icon icon-{$vo.ename}"></i></span>
+          </notempty>
+            <span class="name">{$vo.name}</span>
+          </a>
+        </li>
+        <eq name="mod" value="3"></ul><ul class="flex-box"></eq>
+      </volist>
+    </ul>
+  </notempty>
+</div>

@@ -1,0 +1,6 @@
+ALTER TABLE `jipu_distribution`
+DROP COLUMN `create_time`,
+DROP COLUMN `bind_time`,
+DROP COLUMN `unbind_time`,
+DROP COLUMN `bind_status`,
+DROP COLUMN `check_bind`;

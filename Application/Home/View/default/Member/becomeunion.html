@@ -1,0 +1,65 @@
+<extend name="Base/member"/>
+
+<block name="body">
+  <div class="user-box shop">
+    <h3 class="title">
+      成为代理
+    </h3>
+  
+  <div class="sdp text-center">
+    <br/>
+    <h3>{$mess}</h3>
+    <p><br/>
+  
+<if condition='C("DIS_CONDITION.TYPE") eq 1 || $status eq 1'>
+  <form method="post" class='myform'>
+      <a class="btn btn-positive J_open_union sure">
+       我要申请加入代理联盟</a>
+      <input type="hidden" name="remember"  value="1">
+  </form>
+  </if>
+      <div class="form-group">
+          <div class="checkbox">
+              <label><input type="checkbox" id="register_agree" name="is_settlement_account" value="1" checked />
+                  <span id="registerMerge"><a href="javascript:;">同意《推广联盟免责协议》</a></span>
+              </label>
+          </div>
+      </div>
+
+      <div id="register-div" class="modal-dialog modal-box" style="display: none">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close J_modal_close" data-dismiss="modal"><i class="icon icon-close"></i></button>
+                  <h4 class="modal-title">推广联盟免责协议</h4>
+              </div>
+              <!-- 内容content -->
+              <div class="fixed-coupon">
+                  <div>
+                      {$user_agreement}
+                  </div>
+              </div>
+          </div>
+      </div>
+    </p>
+  </div>
+
+</div>
+  
+</block>
+
+<block name="script">
+  <script>
+    seajs.use(['common','user'], function(loadtype,user){
+        user.zhuce();
+        user.agree();
+      $('.sure').bind('click',function(){
+          $('.myform').submit();
+      });
+    });
+  </script>
+  <style>
+        #register-div{width: 700px;position: fixed; top: 50%; left: 50%; margin: -250px 0px 0px -350px; z-index:999;display:none;}
+        #register-div .modal-content .fixed-coupon div{line-height:2; height:500px; padding:20px; overflow: auto}
+        #hidden-div{width: 100%; z-index: 1; display: none;}
+  </style>
+</block>

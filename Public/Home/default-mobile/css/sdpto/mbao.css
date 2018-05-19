@@ -1,0 +1,159 @@
+html, body, h1, h2, h3, h4, h5, h6, div, dl, dt, dd, ul, ol, li, p, blockquote, pre, hr, figure, table, caption, th, td, form, fieldset, legend, input, button, textarea, menu {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 64px;
+    width: 100%;
+}
+
+body {
+    width: 100%;
+}
+
+.bg {
+    width: 100%;
+    font-family: "微软雅黑", serif;
+    position: relative;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+.con{
+    width:100%;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.con img {
+    -webkit-touch-callout: none;
+}
+
+.logo img{
+    -webkit-touch-callout: none;
+}
+
+.container{
+    position: relative;
+    z-index:0;
+    width:100%;
+    padding-top:2.9rem;
+}
+
+.logo{
+    width:51%;
+    margin:0 auto;
+}
+
+.photo{
+    width:1.36rem;
+    height:1.36rem;
+    margin:1.07rem auto 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.nickname{
+    margin-top: 0.36rem;
+    font-size:0.373rem;
+    color: #666666;
+    line-height:0.38rem;
+    text-align:center;
+}
+
+.ui_code{
+    font-size:0.427rem;
+    color: #2d2d2d;
+    line-height:0.85rem;
+    text-align:center;
+    margin-bottom: 0.36rem;
+}
+
+.ui_code span{
+    color: #04a810;
+}
+
+.er_code{
+    width:2.5rem;
+    height:2.5rem;
+    overflow: hidden;
+    margin:0 auto;
+}
+
+.er_code *{
+    width:100%;
+    height: 100%;
+}
+
+.diwen{
+    width:100%;
+    margin-top: -1rem;
+}
+
+.diwen img{
+    -webkit-touch-callout: none;
+}
+
+.bt{
+    width:92%;
+    margin:0 auto;
+    font-size:0.373rem;
+    color: #999999;
+    padding:0.4rem 0;
+    margin-top:0.1rem;
+}
+
+.bt span{
+    padding:0 0.7rem 0 0;
+    background: url("../images/face.png") left center no-repeat;
+    background-size:0.45rem 0.45rem;
+}
+
+.list{
+    width:100%;
+}
+
+.list li{
+    overflow: hidden;
+    border-top: 1px solid #e5e5e5;
+    padding:0.48rem 4%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.list li div{
+    /*float: left;*/
+}
+
+.list li .l_text{
+    float:left;
+    width:18%;
+    font-size:0.426rem;
+    color: #333;
+    font-weight:bold;
+    height: 100%;
+}
+
+.list li .r_text{
+    float: left;
+    width:80%;
+    font-size:0.38rem;
+    color: #666;
+}
+
+.text{
+    border-top:1px solid #e5e5e5;
+    padding:0.5rem 4% 1.76rem 4%;
+}
+
+.text p{
+    background: #c7f1d3;
+    padding:0.48rem;
+    font-size:0.36rem;
+    color: #000;
+}

@@ -1,0 +1,34 @@
+<extend name="Base/common"/>
+<block name="header">
+{:hook('mobileTopNav',array('title'=>'团购列表'))}
+</block>
+ 
+<block name="body">
+<script>
+    seajs.use(['common', 'order'], function(common, o){
+      var url = window.location.href;
+      order = o;
+      o.bindList();
+      common.loadmore(url);
+    });
+  </script>
+  <div class="list-bg" id="Z_load_itemlist">
+    <notempty name="list">
+      <include file="joinList"/>
+    <else/>
+      <p class="list-empty">您暂时没有{$meta_title}。</p>
+    </notempty>
+  </div>
+</block>
+
+<block name="script">
+  <!-- <script type="text/javascript">
+    seajs.use(['common', 'order'], function(common, o){
+      var url = window.location.href;
+      order = o;
+      o.bindList();
+      common.loadmore(url);
+    });
+  </script> -->
+</block>
+

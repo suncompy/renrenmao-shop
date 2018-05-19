@@ -1,0 +1,12 @@
+<volist name="lists" id="vo">
+  <dl id="Z_message_{$vo.id}">
+   <a href="{:U('Message/details?message_id='.$vo['id'])}" class="Z_message_title" > <dt>
+      <i class="read-dot{$vo['is_read']==0 ? ' active' : ''}" id="Z_message_readdot_{$vo.id}"></i>
+      {$vo.title}
+    </dt>
+    <dd>{:date('Y-m-d', $vo['create_time'])}</dd></a>
+  </dl>
+</volist>
+<script>
+  C.has_more =  '{$_hasmore}';
+</script>

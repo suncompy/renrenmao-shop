@@ -1,0 +1,4 @@
+//=============================∑÷œ˙µÍ∆Ãbanner±≥æ∞£®buddha£©===============================================
+ALTER TABLE `jipu_shop`
+ADD COLUMN `pc_pic`  varchar(255) NULL COMMENT 'PC∂À±≥æ∞Õº' AFTER `audit_data`,
+ADD COLUMN `wap_pic`  varchar(255) NULL COMMENT 'WAP∂À±≥æ∞Õº' AFTER `pc_pic`;

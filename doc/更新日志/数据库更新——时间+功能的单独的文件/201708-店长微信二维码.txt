@@ -1,0 +1,1 @@
+ALTER TABLE  `jipu_shop` ADD  `shopper_code` VARCHAR( 100 ) NULL DEFAULT NULL COMMENT  'µê³¤Î¢ÐÅ¶þÎ¬Âë'

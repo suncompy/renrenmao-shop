@@ -1,0 +1,7 @@
+
+
+
+ALTER TABLE `jipu_order` ADD `score_amount` DECIMAL(10,2) NULL DEFAULT '0.00' COMMENT '积分抵扣金额' AFTER `order_type`, ADD `coupon_amount` DECIMAL(10,2) NULL DEFAULT '0.00' COMMENT '优惠券金额' AFTER `score_amount`, ADD `card_amount` DECIMAL(10,2) NULL DEFAULT '0.00' COMMENT '礼品卡使用金额' AFTER `coupon_amount`;
+ALTER TABLE `jipu_order` ADD `manjian_amount` DECIMAL(10,2) NULL DEFAULT '0.00' COMMENT '满减订单额度' AFTER `card_amount`;
+ALTER TABLE `jipu_crowdfunding_users` CHANGE `payment_status` `payment_status` INT(2) NOT NULL DEFAULT '0' COMMENT '支付状态（0：未支付，1：已支付，2：已退款，3，已退部分）';
+需要把之前的order_item 里的小计重新计算出来

@@ -1,0 +1,67 @@
+<extend name="Public/base"/>
+
+<block name="body">
+  <!-- 标题 -->
+  <div class="main-title">
+    <h2>{$meta_title}</h2>
+  </div>
+  <div class="cf">
+    <if condition="C('OPEN_SYSTEM_ARTICLE') eq 1">
+    <div class="fr">
+      <div class="btn-group">
+        <a class="btn" href="{:U('Article/editSystem')}">添 加</a>
+      </div>
+    </div>
+    </if>
+    <span class="text-danger">（在相关操作处可查看具体内容，例：在用户注册须查看注册协议）</span>
+  </div>
+
+  <!-- 数据表格 -->
+  <div class="data-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>标题</th>
+          <th>标识</th>
+          <th>时间</th>
+          <th width="125">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <notempty name="lists">
+          <volist name="lists" id="vo">
+            <tr>
+              <td>{$vo.id}</td>
+              <td><a href="{:U('editSystem?id='.$vo['id'])}">{$vo.title}</a></td>
+              <td>{$vo.code}</td>
+              <td>{$vo.ctime|time_format}</td>
+              <td>
+                <a href="{:U('editSystem?id='.$vo['id'])}">[编辑]</a>
+              </td>
+            </tr>
+          </volist>
+        <else/>
+          <tr>
+            <td colspan="10" class="text-center"> 暂无文章!  
+            <if condition="C('OPEN_SYSTEM_ARTICLE') eq 1">
+              <a href="{:U('Article/editSystem')}" class="btn btn-mini">&plus;立即添加</a>
+            </if>
+            </td>
+          </tr>
+        </notempty>
+      </tbody>
+    </table> 
+  </div>
+  <!-- 分页 -->
+  <div class="page">
+    {$_page}
+  </div>
+</block>
+
+<block name="script">
+  <script type="text/javascript">
+    //导航高亮
+    highlight_subnav("{:U('Article/articleSystem')}");
+  </script>
+</block>

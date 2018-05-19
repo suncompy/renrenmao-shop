@@ -1,0 +1,45 @@
+<extend name="Base/common"/>
+<block name="header">
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+</block>
+
+<block name="body">
+  <!-- <div class="text-warning">
+   目前支持<em class="text-danger">{:C('DIS_CLASS')}级代理</em>。一级代理<em class="text-danger">{:C('FIRISTNAME')}%</em> <if condition='C("DIS_CLASS") gt 1'>二级代理<em class="text-danger">{:C('SECONDNAME')}%&nbsp&nbsp</em> </if><if condition='C("DIS_CLASS") gt 2'>二级代理<em class="text-danger">{:C('THIRDNAME')}% &nbsp&nbsp</em> </if>。
+  </div> -->
+  <!----代理人数-->
+  <div class="unioner-nmb" style="background:white">
+  <h1>{$count}</h1>
+  <p>名{$type}级代理</p>
+  </div>
+  <br />
+
+ <div class="table-view">
+  <div class="content-padded" style="background:#ffffff">
+    <notempty name="data.0.user_id">
+      <volist name="data" id="vo">
+        <div class="mb invite text-lists">
+        <img class="img" src="{$vo.user_id|getAvatar}" >
+          <div class="invite-t">  
+            <span class="pull-left">
+              {$vo.user_id|get_nickname}
+            </span>
+            <em class="pull-right">{$vo.user_id|regtime}</em>
+          </div>
+          <div class="invite-b">          
+            <span class="pull-left">
+              电话：{$vo.mobile} &nbsp;订单：{$vo.user_id|get_unionorder}  下线：{$vo.user_id|myflowers} 
+            </span>
+           
+        </div>
+        </div>
+      </volist>
+    <else />
+      <p class="list-empty">暂无代理记录...</p>
+    </notempty>
+  </div>
+ </div>
+</block>
+<block name="script">
+
+</block>

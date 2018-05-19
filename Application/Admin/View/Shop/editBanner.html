@@ -1,0 +1,33 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <form action="{:U('')}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">幻灯片<span class="check-tips">（请上传清晰图片，且高度为450px的图片）</span></label>
+            <div class="controls">
+                {:hook('uploadImages', array('name' => 'slide', 'value' => $lists['slide'], 'tpl' => 'one'))}
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">链接<span class="check-tips">（跳转链接必须带有“http://”）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="slide_url" value="{$lists.slide_url|default='http://'}">
+            </div>
+        </div>
+
+        <div class="form-item">
+            <input type="hidden" name="id" value="{$id}" />
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        highlight_subnav('{:U("banner")}');
+    </script>
+</block>

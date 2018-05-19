@@ -1,0 +1,71 @@
+<extend name="Base/common"/>
+
+
+<block name="body">
+  
+  <div class="content-padded">
+   {$mess}
+  </div>
+    <if condition='$status eq 1 '>
+        <div class="content-padded">
+            <form class="myform" method="post">
+                <a class="btn btn-block sure"  >我要申请加入代理联盟</a>
+                <input type="hidden" name="remember" id="union" value="1">
+            </form>
+        </div>
+
+        <div class="control-group checkbox">
+            <div class="pull-left toggle active" data-for="remember" id="register_agree">
+                <div class="toggle-handle"></div>
+            </div>
+                <a href="javascript:;" id="zhuce-div">《推广联盟免责声明》</a>
+        </div>
+        <else/>
+        <div class="content-padded">
+                <a class="btn btn-block sures" style="background: #eee;border: none ">我要申请加入代理联盟</a>
+               <input type="hidden" name="remember" id="union" value="1">
+        </div>
+
+        <div class="control-group checkbox">
+            <div class="pull-left toggle active" data-for="remember" id="register_agree">
+                <div class="toggle-handle"></div>
+            </div>
+            <a href="javascript:;" id="zhuce-div">《推广联盟免责声明》</a>
+        </div>
+    </if>
+  <if condition='C("DIS_CONDITION.TYPE") eq 1 AND $status eq 1'>
+  <!--<div class="content-padded">
+  <form class="myform" method="post">
+    <a class="btn btn-block sure" >我要申请加入代理联盟</a>
+      <input type="hidden" name="remember" id="union" value="1">
+  </form>
+  </div>-->
+  </if>
+
+        <div id="Z_spec_info" class="modal modal-spec">
+            <header class="bar bar-nav"> <a class="pull-right" href="#Z_spec_info"><i class="icon icon-close"></i></a>
+                <h1 class="title">推广联盟免责声明</h1>
+            </header>
+            <div class="content content-padded">
+                <div class="pro-spc" id="Z_item_spc">
+                    <div class="spec-box" style="height:calc(100vh - 44px); padding:20px 0; overflow-y: auto; line-height: 2.2;">
+                        {$user_agreement}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</block>
+
+<block name="script">
+  <script>
+  seajs.use(['common','member'], function(loadtype,member){
+      member.zhuce();
+      member.agree();
+
+      $('.sure').bind('click',function(){
+          $('.myform').submit();
+      });
+    });
+  </script>
+</block>

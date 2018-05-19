@@ -1,0 +1,84 @@
+<notempty name="list">
+  <volist name="list" id="vo">
+    <div class="order-lists"> 
+      <p>
+        <em>订单号：{$vo['join_sn']}</em>
+        <em class="pull-right">{:time_format($vo['otime'], 'Y-m-d')}</em>
+      </p>
+<div class="item" >
+        <ul style="width: 46px;">
+          <li>
+<img src="{:get_image_thumb(get_cover($vo['thumb'],'path'), 100, 100)}" />
+          </li>
+        </ul> 
+          <notempty name='vo.web'>
+          <!--  <em > 我要邀请好友：</em> -->
+          <div class="jiathis_style_24x24" style="display: inline-block;"> 
+            <input type="hidden" class="goodsname" value='{$vo.name}'>
+            <input type="hidden" class="sumary" value='{$vo.name}'>
+            <input type="hidden" class="imgurl" value="{$web}{:get_image_thumb(get_cover($vo['thumb'],'path'), 60, 60)}">
+            <input type="hidden" class="goodsurl" value="{$vo.web}">
+          </div>
+          </notempty>
+      <a href="{:U('Join/detail', array('id' => $vo['item_id']))}">  <i class="pull-right icon icon-arrow-right"></i></a>
+</div>
+      <div class="info">
+        <span class="text-danger price">
+          <small class="yen">&yen; </small>
+          <em>{:sprintf('%.2f', $vo['total_amount'])}</em>
+        </span>
+        <span class="status" id="Z_order_{$vo['id']}">
+          <em class="msg">
+            <if condition='$vo.out neq 1 '>       
+              <switch name='vo.jstatus'>
+                <case value='0'>
+    <php>
+if( $vo['paytime'] > 0 &&  min($vo['hdetime'],gethdtime($vo['item_id']) ) < time()   ){
+                      echo '发起的团购已截止';
+                  }else{
+                  echo '待拼团';
+                  }
+              </php>
+
+               </case>
+                <case value='1'>拼团成功</case>
+                <case value='2'>拼单失败</case>
+                <case value='3'>拼团失败且已退款</case>
+              </switch>
+              <else />
+    <em >您的团购结束了</em>
+              </if>
+           
+          </em>
+          <!--已删除|还原或清空-->
+
+          <notempty name='vo.out'>
+
+          <a href="javascript:order.setStatus22({$vo['id']}, 'recycle');" class="btn" data-id="{$vo.id}" title="删除订单">
+           删除订单
+          </a>
+          </notempty>
+          <if condition='$vo.out neq 1 '> 
+            <if condition='$vo.status gt 0'>
+              <a href="{:U('Join/orderDetail', array('order_sn' => $vo['join_sn']))}" class="btn">订单详情</a>
+            <else />
+              <a href="{:U('Join/preview', array('order_id' => $vo['id']))}" class="btn btn-positive btn-act">
+              立即支付
+              </a>
+            </if>
+            
+          </if>
+           <notempty name='vo.web'>
+          <a href="{:U('Join/join', array('id' => $vo['jid']))}" class="btn btn-positive btn-act">
+             团购详情
+            </a>
+          </notempty>
+        </span>
+      </div>
+
+    </div>
+  </volist>
+</notempty>
+<script>
+  C.has_more =  '{$_hasmore}';
+</script>

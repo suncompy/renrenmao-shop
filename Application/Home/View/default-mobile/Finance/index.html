@@ -1,0 +1,65 @@
+<extend name="Base/common"/>
+<block name="header">
+<php>if(!is_weixin()){</php>
+{:hook('mobileTopNav',array('title'=>$meta_title))}
+<php>}else{</php>
+  <header class="bar bar-nav">
+    <a href="{:U('/')}" class="logo"><img src="{:get_cover(C('WAP_LOGO'),'path')}" height="34" alt="{:C('WEB_SITE_TITLE')}"></a>
+    <span class="nav-invite">客服：<a class="text-danger" href="TEL:{:C('WEB_SITE_TEL')}">{:C('WEB_SITE_TEL')}</a></span>
+  </header>
+<php>}</php>
+</block>
+
+<block name="body">
+  <div class="sdp">
+    <div class="head">
+      <div class="text-center hd">
+        <p>账户可用余额(元)</p>
+        <h2>{$member.finance|sprintf='%.2f',###}</h2>
+      </div>
+      <div class="text-center bd">
+        <p>可提现金额(元)</p>
+        <h4>
+          {$withdraw_finance|sprintf='%.2f',###}
+          <a href="{:U('Withdraw/add')}" class="btn">提现</a>
+        </h4>
+      </div>
+    </div>
+    
+    <div class="nav">
+      <ul class="flex-box">
+        <li>
+          <a href="{:U('UserAccount/index')}">
+            <i class="icon icon-card"></i>
+            <span>提现账户</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:U('Member/finance')}">
+            <i class="icon icon-form"></i>
+            <span>收支明细</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="flex-box">
+        <li>
+          <a href="{:U('Member/sdp')}">
+            <i class="icon icon-sdp"></i>
+            <span>我的分销</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:U('Member/union')}">
+            <i class="icon icon-link"></i>
+            <span>推广联盟</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</block>
+
+<block name="script">
+  <script>
+  </script>
+</block>

@@ -1,0 +1,112 @@
+<extend name="Base/common"/>
+<block name="header"> {:hook('mobileTopNav',array('title'=>$meta_title))} </block>
+
+<block name="body">
+  <!-- 中间的内容部分 -->
+  <link href="__CSS__/marketing.css" rel="stylesheet">
+    <div class="purchase-list">
+        <div class="purchase-list-top">
+            <div class="p-list-left">
+  <img src="{:get_image_thumb(get_cover($data['thumb'],'path'), 120, 120)}" />
+            </div>
+            <div class="p-list-right">
+                <h3>{$data.item_name}</h3>
+                <p>单买：<span>￥{$data.price} </span>　{$data.join_num}人团</p>
+                <label>￥{$data.myhdid|getjoinprice}</label><a href="javascript:;" class="J_join_buy">参团</a>
+            </div>
+        </div>
+    </div>
+<input type="hidden" id="Z_item_id" name="item_id" value="{$data.item_id}">
+<input type="hidden" id="Z_item_price" name="price" value="{$data.myhdid|getjoinprice}">
+<input type="hidden" id="Z_item_joinid" name="join_id" value="{$data.join_id}">
+<input type="hidden" id="Z_item_stock" value="{$data.stock}" />
+<input type="hidden" id="Z_item_spec" name="specifiction" value="{$data.spec}">
+<input type="hidden" id="Z_item_code" name="item_code" value="{$data.item_code}"> 
+<input type="hidden" id="Z_item_quantity" value="1">
+    <div class="count-down">
+        <span class="Z_seckill_time">秒杀活动已结束</span>
+        <a href="javascript:;">差
+         <label>
+         <php>echo $data['join_num']-$nums ;</php>
+         </label> 人成团</a>
+    </div>
+    <div class="their-head-m">
+        <div class="m-head-l">
+            <img src="{$data.reg_uid|getAvatar}" />
+            <span>团长</span>
+        </div>
+        <div class="m-head-r">
+            <img src="/Public/Home/default/images/sheir-img.png" />
+            <a href="javascript:;">
+                {$data.reg_uid|get_nickname}  <span>{$data.ship_area}</span>
+                
+                <label>{$data.hdstime|time_format}开团</label>
+            </a>
+            <p> <label></label>{:C('JOIN_MESSAGE')}</p>
+        </div>
+    </div>
+</div>
+<!-- =====================更多团购======================== -->
+<div class="content itemListsByCate ">
+  <div class="item-title" >
+      <span class="border">
+        <a href="#"><span class="text">更多拼团</span></a>
+      </span>
+    </div>
+    <div class="item-list clearfix" id="Z_load_items">
+      <notempty name="goods">
+        <volist name="goods " id="vl" mod="5">
+          <div class="item Z_item_list" data-href="{:U('Join/detail', array('id' => $vl['item_id']))}">
+            <div class="info-box">
+              <a href="{:U('Join/detail', array('id' => $vl['item_id']))}"><img src="__IMG__/img-pai-bg.png" data-url="{:get_image_thumb($vl['thumb'], 300, 300)}" class="lazy" alt="{$vl.goods_name}"></a>
+              <div class="info">
+                <a href="{:U('Join/detail', array('id' => $vl['item_id']))}" class="name">{:get_short($vl['goods_name'],23)}</a>
+                <p class="price">
+                  <span class="text-danger"><em class="yen">&yen;</em> {$vl.join_price}</span>
+                  <a href="{:U('Join/detail', array('id' => $vl['item_id']))}" class="buy-btn"><span>立即购买</span></a>
+                  <!--del><em class="yen">&yen;</em>{$vl.mprice}</del-->
+                  <!--if condition="C('IS_SHOW_BUYNUM')"><em class="buynum">{$vl.buynum}人已购买</em></if-->
+                </p>
+              </div>
+            </div>
+          </div> 
+        </volist>
+        <else />
+        暂无更多团购，敬请期待
+      </notempty>
+    </div>
+
+
+
+<!-- =====================THE END======================== -->
+</block>
+
+<!-- 底部tab -->
+<block name="footer">
+    <div class="bar bar-tab their-bottom">
+        <!--<span class="tab-text"> 应付总额：<strong class="text-danger" id="Z_total_price"><em class="yen">&yen;</em> {:sprintf('%.2f', $order_count['total_price'])}</strong> </span>
+        <span class="pull-right cart-checkout"> <a href="javascript:;" class="btn btn-negative btn-tab" id="Z_order_submit">提交订单</a> </span>-->
+        <span><a href="{:U('/join/detail' ,array('id' => $data['gid']))}">
+               更多拼团</a></span>
+        <span class='J_join_buy'>参团<label>(还差
+         <php>echo $data['join_num']-$nums ;</php>
+         人组团成功)</label></span>
+    </div>
+</block>
+<block name="script">
+  <script>
+     var spc_data_info = null;
+        seajs.use('join', function(join){
+            join.init(spc_data_info);
+            join.listsBind({:json_encode($timeout)});
+        });
+  </script> 
+  <style type="text/css">
+.content{ overflow: hidden; }
+.itemListsByCate{background:#F3F3F3;}
+.their-bottom{ width:100% !important}
+.itemListsByCate .item-title{height:60px; text-align:center; padding-top:30px; margin-top:0;}
+.itemListsByCate .item-title .border{border-top:solid 1px #333; height:0px; display:block; margin:0px auto; height:1px; width:68%;}
+.itemListsByCate .item-title .text{margin:-12px auto; display:block; background:#F3F3F3; width:100px; text-align:center; color:#333; font-weight:normal;}
+</style>
+</block>

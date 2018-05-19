@@ -1,0 +1,46 @@
+<volist name="lists" id="vo">
+  <li class="table-view-cell padded-sm">
+    {$vo.memo}
+      <!-- <if condition='$vo.status eq 2'>
+              <em style="color:red">&nbsp;&nbsp;（订单交易失败）</em>
+                </if> -->
+      <switch name="vo.type">
+      <case value="sdp_order">
+        <if condition="$vo.status eq 0">
+           <span style="color:red">&nbsp;&nbsp;【交易进行中】</span>
+        <else />
+          <eq name="vo.flow" value="in">
+            <span style="color:green">&nbsp;&nbsp;【交易完成-可提现】</span>
+          <else />
+            <span style="color:red">&nbsp;&nbsp;【订单失效】</span>
+          </eq>
+        </if>
+      </case>
+      <case value="union_order">
+        <if condition="$vo.status eq 0">
+          <span style="color:red">&nbsp;&nbsp;【交易进行中】</span>
+        <elseif condition="$vo.status eq 1" />
+          <span style="color:green">&nbsp;&nbsp;【交易完成-可提现】</span>
+        <else />
+          <span style="color:red">&nbsp;&nbsp;【订单失效】</span>
+        </if>
+      </case>
+      <case value="sdp_refund">
+        <span style="color:red">&nbsp;&nbsp;【订单失效】</span>
+      </case>
+    </switch>
+    <em class="pull-right">
+    <if condition='$vo.status neq 2'>
+      <eq name="vo.flow" value="in"><i class="text-success">+{$vo.amount} 元</i></eq>
+      <eq name="vo.flow" value="out"><i class="text-danger">-{$vo.amount} 元</i></eq>
+      <else />
+         <i class="text-danger" style="color:red">已失效</i>
+         <!-- <i class="text-danger">-{$vo.amount} 元</i> -->
+     </if>
+    </em>
+    <p class="text-info">{$vo.create_time|time_format}</p>
+  </li>
+</volist>
+<script>
+  C.has_more =  '{$_hasmore}';
+</script>

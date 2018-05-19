@@ -1,0 +1,114 @@
+<extend name="Base/common"/>
+
+<block name="header">
+<php>if(!is_weixin()){</php>
+    <header class="bar bar-nav post-retve" style="background-color:#2d8701;color:#fff">
+        <a href="javascript:history.go(-1);" id="return_last_page_nav" style="position: absolute; left: -12px; top: 9px; color:#fff" ><i class="icon icon-arrow-left" style="color:#fff"></i></a>
+        <h1 class="title" style=" z-index:1;color:#fff;"><if condition="$arr.type != ''">推荐人解绑<else />推荐人绑定</if></h1>
+	</header>
+<php>}</php>
+</block>
+
+<block name="body">
+ <form action="{:U('SetRecommender')}" method="POST" >
+    <div class="recommender">
+     <if condition="$arr.one_name != ''"><input type="text" name="oneagents" readonly="readonly" value="上级推荐人：{$arr.one_name}" /></if>
+     <input type="hidden" name="username" class="Z_mobile" value="{$user.mobile}" id="Z_input_username" placeholder="您的手机号" errormsg="请填写正确的手机" nullmsg="请填写手机" datatype="m">
+     <div class="number">
+   <input type="text" name="mobile" class="Z_mobile"  readonly="readonly" value="手机号码： {$user.mobile}" placeholder="请输入本人手机号">
+    <a href="javascript:;" class="btn btn-primary btn-randcode Z_mobile_randcode_button" <if condition="$arr.one_name != ''">style="top:9.4%" <else />style="top:1.4%" </if> >获取验证码</a>
+         <input type="tel" name="randcode" class="Z_mobile_randcode" maxlength="6"  placeholder="短信验证码">
+  </div>
+  <div class="invitation_code">
+   <input type="text" name="invite" placeholder="请输入推荐人推广码">
+  </div>
+  <div class="rule">
+
+
+          <div class="content-padded">
+              <input type="submit" class="btn btn-block btn-positive Z_submit" <if condition="$arr.type !=''"> value="更换推荐人" <else /> value="确定"</if> >
+              <input type="hidden" name="remember" id="union" value="1">
+
+          </div>
+<div class="control-group checkbox control-group-fade">
+              <div class="pull-left toggle active" data-for="remember" id="register_agree">
+              <i class="icon icon-zhengque"></i>
+              </div>
+              同意<a href="javascript:;" id="zhuce-div">《邀请人绑定规则》</a>
+          </div>
+
+          <div id="Z_spec_info" class="modal modal-spec" style="left: 0">
+              <header class="bar bar-nav"> <a class="pull-right" href="#Z_spec_info"><i class="icon icon-close"></i></a>
+                  <h1 class="title">邀请人绑定规则</h1>
+              </header>
+              <div class="content content-padded">
+                  <div class="pro-spc" id="Z_item_spc">
+                      <div class="spec-box" style="height:calc(100vh - 44px); padding:20px 0; overflow-y: auto; line-height: 2.2;">
+                          {$user_agreement}
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+  </div>
+  <div class="button">
+
+   <!--这里的完成点击之后出现的是我绑定的上级的动态宣传页-->
+  </div>
+ </div>
+ </form>
+<style type="text/css">
+  .recommender{
+    width:100%;
+    background: #fff;
+    height: 86vh;
+    overflow: hidden;
+  }
+  .recommender input{
+    border: 1px solid #f0f0f0;
+    margin-top:-1px;
+    width: 100%;
+    -webkit-appearance: none;
+    margin-bottom: 0;
+  }
+  .recommender .number input{
+    position: relative;
+  }
+  .recommender .number a{
+    position: absolute;
+    top:1.4%;
+    right:10px;
+    background: #2d7200;
+    color: #fff;
+    border-radius: 3px;
+    padding: 5px 8px;
+  }
+  .recommender .rule{
+    padding: 20px 10px 10px 10px;
+  }
+/*  .recommender .rule a{
+    color: #2d7200;
+  }*/
+  .recommender .button{
+    text-align: center;
+    margin: 20px 0 30px 0;
+  }
+  .recommender .button a{
+    color: #fff;
+    font-size: 16px;
+    background: #2d7200;
+    padding: 10px 43%;
+    border-radius: 5px;
+  }
+</style>
+</block>
+<script type="text/javascript" src="__JS__/lib/jquery/jquery-2.0.3.min.js"></script>
+<block name="script">
+    <script type="text/javascript">
+        seajs.use('user', function(user){
+            user.getRandCode('experience');
+            user.zhuce();
+        });
+    </script>
+</block>

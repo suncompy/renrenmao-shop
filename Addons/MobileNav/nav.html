@@ -1,0 +1,13 @@
+<php>if(!is_weixin() && $addons_config['display']){</php>
+<style>
+.top_title{color:#FFF; text-align:center; line-height:45px; font-size:16px;}
+</style>
+<ul class="wap_nav">
+<li class="l"><a href="javascript:history.go(-1);" id="return_last_page_nav"><i class="icon icon-arrow-left"></i></a></li>
+<li class="top_title">{:get_short($addons_config['title'],10)}</li>
+    <php>if(is_app() && CONTROLLER_NAME == 'Item'){</php>
+    <li class="r"><a href="javascript:history:common.shareByApp({$addons_config['id']})" class="pull-right icon icon-forward show_box" style=" color:#fff"></a></li>
+    <php>}</php>
+</ul>
+<div style="height:44px;"></div>
+<php>}</php>

@@ -1,0 +1,72 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>广告管理({:count($lists)})</h2>
+    </div>
+
+    <div class="cf">
+        <!-- 按钮工具栏 -->
+        <div class="fl">
+            <a class="btn item_add" href="{:U('Shop/addBanner')}">新 增</a>
+            <button url="{:U('setStatus', array('status' => -1))}" class="btn ajax-post confirm" target-form="ids">删 除</button>
+        </div>
+    </div>
+
+    <!-- 数据表格 -->
+    <div class="data-table">
+        <table>
+            <!-- 表头 -->
+            <thead>
+            <tr>
+                <th class="row-selected row-selected">
+                    <input class="check-all" type="checkbox">
+                </th>
+                <th>幻灯片</th>
+                <th>链接地址</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            <!-- 列表 -->
+            <tbody class="category">
+            <notempty name="lists">
+                <volist name="lists" id="vo">
+                    <tr class="status_trclass_{$vo.status}">
+                        <td><input class="ids" type="checkbox" value="{$vo['id']}" name="ids[]"></td>
+                        <td><img src="{:get_image_thumb(get_cover($vo['slide'],'path'), 300, 120)}" /></td>
+                        <td>{$vo.slide_url|default='暂无'}</td>
+                        <td>{$vo.status_text}</td>
+                        <td>
+                            <if condition="$vo.status eq 0">
+                                <a href="{:U('setStatus?status=1&ids='.$vo['id'])}" class='ajax-get'>[启用]</a>
+                                <else/>
+                                <a href="{:U('setStatus?status=0&ids='.$vo['id'])}" class='ajax-get'>[禁用]</a>
+                            </if>
+                            <a href="{:U('editBanner', array('id' => $vo['id']))}">[编辑]</a>
+                            <a href="{:U('setStatus?status=-1&ids='.$vo['id'])}" class="confirm ajax-get">[删除]</a>
+                        </td>
+                    </tr>
+                </volist>
+                <else />
+                <td colspan="6" class="text-center"> aOh! 暂时没有广告! <a href="{:U('addBanner')}">立即添加&gt;</a></td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <!-- 分页 -->
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+    <script>
+        $(function(){
+            highlight_subnav("{:U('banner')}");
+            Core.setValue('tid', '{:I("get.tid", 0)}');
+        });
+    </script>
+</block>

@@ -1,0 +1,257 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{$meta_title}{:C('WEB_SITE_TITLE')}-{:C('WEB_SITE_SUB_TITLE')}</title>
+<meta name="Keywords" content="{:C('WEB_SITE_KEYWORD')}">
+<meta name="Description" content="{:C('WEB_SITE_DESCRIPTION')}">
+<meta property="qc:admins" content="26713603346011413056375" />
+<meta property="wb:webmaster" content="9668f61721702d43" />
+<meta property="formhash" content="{:create_form_hash()}" />
+<link href="__IMG__/favicon.ico" rel="shortcut icon">
+<link href="__CSS__/style.min.css?15112509" rel="stylesheet">
+<link href="__CSS__/hd.css" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="__JS__/lib/iesupport/html5shiv.min.js"></script>
+<script src="__JS__/lib/iesupport/respond.min.js"></script>
+<![endif]-->
+
+<block name="style"></block>
+<!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+{:hook('pageHeader')}
+<include file="Public/var"/>
+<script src="__JS__/lib/seajs/sea.3.0.0.js" type="text/javascript"></script>
+<script src="__JS__/config.js?{:date('YmdH')}" type="text/javascript"></script>
+<if condition='C("HOME_STYLE")'>
+<php>
+$color = explode('|',C("HOME_STYLE"));
+if(count($color) == 1)$color[1] = $color[0];
+</php>
+<style type="text/css">
+.btn-positive {
+    background-color: {$color[0]} ;
+    border-color: {$color[0]} ;
+}
+
+.btn-positive.active, .btn-positive.focus, .btn-positive:active, .btn-positive:focus, .btn-positive:hover, .open > .btn-positive.dropdown-toggle {
+    background-color: {$color[1]};
+    border-color: {$color[1]};
+}
+.user-box .list-info .bd .text-success {
+    color: {$color[1]};
+}
+#site-nav a i {
+    color: {$color[0]};
+}
+.user-nav > .list li.active a {
+    color: {$color[0]};
+}
+.user-box .box-nav li.active a {
+    color: {$color[1]};
+}
+.btn-positive.disabled, .btn-positive.disabled.active, .btn-positive.disabled.focus, .btn-positive.disabled:active, .btn-positive.disabled:focus, .btn-positive.disabled:hover, .btn-positive[disabled], .btn-positive[disabled].active, .btn-positive[disabled].focus, .btn-positive[disabled]:active, .btn-positive[disabled]:focus, .btn-positive[disabled]:hover, fieldset[disabled] .btn-positive, fieldset[disabled] .btn-positive.active, fieldset[disabled] .btn-positive.focus, fieldset[disabled] .btn-positive:active, fieldset[disabled] .btn-positive:focus, fieldset[disabled] .btn-positive:hover {
+    background-color: {$color[0]} ;
+    border-color: {$color[0]};
+}
+
+.btn-positive .badge {
+    color: {$color[0]};
+}
+
+.btn-negative {
+    background-color: {$color[0]};
+    border-color: {$color[0]};
+}
+.user-box .user-order > h3 .order-recycle-link.active {
+    color: {$color[1]};
+    border-bottom: 1px dotted {$color[1]};
+}
+.btn-negative.disabled, .btn-negative.disabled.active, .btn-negative.disabled.focus, .btn-negative.disabled:active, .btn-negative.disabled:focus, .btn-negative.disabled:hover, .btn-negative[disabled], .btn-negative[disabled].active, .btn-negative[disabled].focus, .btn-negative[disabled]:active, .btn-negative[disabled]:focus, .btn-negative[disabled]:hover, fieldset[disabled] .btn-negative, fieldset[disabled] .btn-negative.active, fieldset[disabled] .btn-negative.focus, fieldset[disabled] .btn-negative:active, fieldset[disabled] .btn-negative:focus, fieldset[disabled] .btn-negative:hover {
+    background-color: {$color[0]};
+    border-color: {$color[0]};
+}
+.btn-negative .badge {
+    color: {$color[0]};
+}
+.btn-link:focus, .btn-link:hover {
+            color: {$color[0]};
+        }
+.page > div > a:focus, .page > div > a:hover, .page > div > span:focus, .page > div > span:hover {
+    color: {$color[0]};
+}
+
+.page > div > .current, .page > div > .current:focus, .page > div > .current:hover {
+    background-color:{$color[0]};
+    border-color: {$color[0]};
+}
+
+.label-positive {
+    background-color: {$color[0]};
+}
+
+.label-positive[href]:focus, .label-positive[href]:hover {
+    background-color: {$color[1]}; 
+}
+
+.label-negative {
+    background-color: {$color[0]};
+}
+.list-item.active, .list-item.active:focus, .list-item.active:hover {
+    background-color: {$color[0]};
+    border-color: {$color[0]};
+}
+.thumbnail:hover {
+    border-color: {$color[0]};
+}
+
+.thumbnail .caption .btn-sm:hover {
+    border-color: {$color[0]};
+    /*color: {$color[0]};*/
+}
+.progress-bar, .progress-bar-positive {
+    background-color: {$color[0]};
+}
+.progress-bar-negative {
+    background-color: {$color[0]};
+}
+ .modal-dialog .modal-body .info .icon.icon-success {
+    color: {$color[0]};
+}
+
+.modal-dialog .modal-body .info .icon.icon-error {
+    color: {$color[0]};
+}
+.navbar-nav > .active a {
+    color: {$color[0]};
+}
+ .nav-category-list .item > a > .icon {
+    color: {$color[0]};
+}
+.nav-category-list .item > .sub-list > a {
+    color: {$color[0]};
+}
+
+.nav-category-list .item > .sub-list > a:hover {
+    color: {$color[1]};
+}
+.footer .slde-menu > ul > li > a > .icon {
+    color: {$color[0]};
+}
+
+.footer .slde-menu > .slde-box {
+    border: 3px solid {$color[0]};
+}
+ .page-wrap .jump-msg .time a {
+    color: {$color[0]};
+}
+.list-filter.cate dl dd span.current a {
+    color: {$color[0]};
+}
+.list-filter.sort > .dl-horizontal > dd > a.active {
+    color: {$color[0]}; 
+}
+.item-title h3 .more {
+    background-color: {$color[0]}};
+}
+.item-title h3 .icon-box {
+    border: 1px solid {$color[0]};
+}
+
+.item-title h3 .icon-box > .icon {
+    color: {$color[0]};
+}
+ .item-pic .hd ul li.on {
+    border: 2px solid {$color[0]};
+}
+.item-info > .panel .skubox_lists.attention {
+    border: 2px solid {$color[0]};
+}
+.item-info > .panel .sku-box .spec-lists > li.choose > a:hover {
+    border: 2px solid {$color[0]};
+}
+.item-info > .panel .sku-box .spec-lists > li.select a {
+    border: 2px solid {$color[0]};
+}
+.item-info > .panel .sku-box .spec-lists > li.select span {
+	border-bottom: 8px solid {$color[0]};
+	border-right: 8px solid {$color[0]};
+}
+.cart-list .item .box > .del:hover {
+    background-color: {$color[0]};
+}
+.cart-list .check.active .icon {
+    color: {$color[0]};
+} 
+.cart-list .supplier-box dd.supplier-dd .is-self {
+    color: {$color[0]};
+}
+.address-item.selected > dl {
+    border-color: {$color[0]};
+}
+.address-edit-box {
+    border: 1px solid {$color[0]};
+}
+ .address-edit-box .bd .item select:focus {
+    border-color: {$color[0]};
+}
+.order-pay-list .selected {
+    border-color: {$color[0]};
+}
+.order-pay-list .selected .icon {
+    color: {$color[0]};
+}
+.order-pay-extend > .item.selected {
+    background: {$color[0]};
+}
+.order-preview .info > h3 > .icon-round-check {
+    color: {$color[0]};
+}
+.order-preview .thirdpay .list li.active .icon-round-check:before {
+    color: {$color[0]};
+}
+.order-detail-table .column-delivery .order-delivery-status .order-delivery-steps .step.step-now .progress {
+    background: {$color[0]};
+}
+.delivery-log > div > p > i.is-new {
+    background-color: {$color[0]};
+}
+.order-comment-box .validate-error {
+    color: {$color[0]};
+}
+.login-third li .icon-qq, .login-third li .icon-weibo {
+    color: {$color[0]};
+}
+.withdraw > .step > ul > li.active:after {
+    background-color: {$color[0]}};
+}
+
+.withdraw > .step > ul > li.active > .icon {
+    color: {$color[0]};
+}
+.shop > h3 .title-right-tip a:hover {
+    color: {$color[0]};
+    border-bottom: 1px dotted {$color[0]};
+}
+a:focus, a:hover {
+    color: {$color[0]};
+}
+.text-primary {
+    color: {$color[0]};
+}
+
+a.text-primary:hover {
+    color: {$color[1]};
+}
+.text-danger {
+    color: {$color[0]};
+}
+.pc_index_1x4 ul li span a{
+	color:{$color[0]};
+}
+</style>
+<else />
+<style type="text/css">
+.pc_index_1x4 ul li span a{color:#2D8701;}
+</style>
+</if>

@@ -1,0 +1,2 @@
+ALTER TABLE `jipu_supplier` ADD `is_free` INT(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否免运费' AFTER `notice_mobile`;
+ALTER TABLE `jipu_supplier` CHANGE `is_free` `no_free` INT(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否免运费';

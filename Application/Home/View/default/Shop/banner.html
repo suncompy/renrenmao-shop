@@ -1,0 +1,42 @@
+<extend name="Base/member"/>
+
+<block name="body">
+    <div class="user-box shop">
+        <include file="Sdp/topbar" />
+        <!-- 已添加商品列表 -->
+        <div class="row item-list" id="J_item_list">
+            <notempty name="lists">
+                <volist name="lists" id="vo">
+                    <div class="col-xs-3 item J_item_list">
+                        <div class="thumbnail thumbnail-fav shopItemList">
+                            <a href="#" title="{$vo.slide_url}" target="_blank"><img src="{:get_image_thumb($vo['pic_url'], 220, 220)}" class="pic"></a>
+                            <if condition="in_array($vo['id'], $shop_data['banners'])">
+                                <a href="javascript:;" class="shop_item_btn J_item_remove" data-itemid="{$vo.id}"></a>
+                                <else/>
+                                <a href="javascript:;" class="shop_item_btn J_item_add" data-itemid="{$vo.id}"></a>
+                            </if>
+                            <!--<div class="caption">-->
+                                <!--<h5 class="thumbnail-label">-->
+                                    <!--<a href="{:U('Item/detail', array('id' => $vo['id']))}">{$vo.name}</a>-->
+                                <!--</h5>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </volist>
+                <else/>
+                <p class="list-empty">暂时没有Banner，请联系平台运营人员添加！<br></p>
+            </notempty>
+            <div style="clear: both">
+                <div class="page">{$_page}</div>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        seajs.use(['shop'], function(shop){
+            shop.changeBanner();
+        });
+    </script>
+</block>

@@ -1,0 +1,123 @@
+<php>$rand_key = time() . mt_rand(10000,99999);</php>
+<div class="input-row set-avatar" style="height:150px">
+<label>{$param.text|default='店铺背景'}：</label>
+<a href="#picCode" class="icon btn-upload" id="filediv_{$rand_key}" style="width:62%;height: 30vw !important;">
+  <!-- 上传成功后，i标签替换为图片 -->
+    <div class="webuploader-pick">
+    	<img id="view" style="height:64px;width:100%" <notempty name='param.path'> src="{:get_image_thumb($param['path'], 640, 315)}" </notempty> alt="">
+    	<i class="icon "></i>
+    	<span id="icon_close" class="icon icon-close closed" <if condition="empty($param['path'])">style="display:none;z-index:998"</if> ></span>
+    	<input type='hidden' id="wap-banner" name='{$param.name}' value="">
+    </div>
+</a>
+<div style="width:100%"><span class="text-info tips">{$param.note|default='大小：640*315像素'}</span></div>
+</div> 
+<!-- 上传图片截取 弹出框 -->
+    <div id="picCode" class="modal" style="z-index:1000">
+      <header class="bar bar-nav">
+        <a class="icon icon-close pull-right" href="#picCode"></a>
+        <h1 class="title">背景图截取</h1>
+      </header>
+      <div class="content" style="background-color: #000;">
+        <p class="qrcode-showbox" id="clipArea" style="height:80%;"></p>
+        <ul class="qrcode-postion">
+        <php>if(is_weixin() && is_android()){</php>
+        <p class="text-warning"  style=" text-align: left"><input type="file" id="file" accept="image/jpg,image/jpeg,image/png" onchange="javascript:setImagePreview();"/>选图</p>
+        <php>}else{</php>
+        <p class="text-warning"  style=" text-align: left"><input type="file" id="file" accept="image/jpg,image/jpeg,image/png"/>选图</p>
+        <php>}</php>
+        <p class="text-warning" ><i class="icon icon-shoushinishizhenxuanzhuan"></i>  图片旋转</p>
+        <p class="text-warning" ><span id="clipBtn">完成</span></p>
+        </ul>
+      </div>
+    </div>
+<style type="text/css">
+    .webuploader-pick #picCode{ }
+    .set-avatar > .btn-upload{ position: relative; }
+    .webuploader-pick div:nth-child(2){ top: -10px}
+    .webuploader-pick span.icon-close{ position: absolute; right: -8px; top: -8px; background-color: #fff;  z-index: 100;width: 26px; height: 26px; display: inline-block; line-height: 26px; color: #666;    text-align: center; font-size: 14px; border:1px solid #eee;  border-radius: 100%;}
+    .webuploader-pick{ overflow: inherit; }
+    .text-warning #file{ background: none; width: 33.333%; height: 100%; position: absolute; bottom: 0; left: 0; opacity: 0}
+    .text-warning{ background: none; border:0; }
+    .qrcode-postion{ position: fixed; bottom: 0px; height: 44px; line-height: 44px; width: 100%; }
+    .qrcode-postion p{ width:33.333%; padding: 0 10px; float: left; text-align: right; color: #f3f3f3; position: relative;}
+    .qrcode-showbox{ padding: 0 }
+    .webuploader-pick{ padding: 0 }
+ .qrcode-postion p i{ position: relative; top: 2px; }
+    #picCode,#view{ height: 100% !important; }
+</style>
+<script src="__JS__/wapuploader/jquery.min.js"></script>
+<script src="__JS__/wapuploader/iscroll-zoom.js"></script>
+<script src="__JS__/wapuploader/hammer.js"></script>
+<script src="__JS__/wapuploader/lrz.all.bundle.js"></script>
+<script src="__JS__/wapuploader/jquery.photoClip.js"></script>
+<script type="text/javascript">
+    var width = window.screen.availWidth;
+    var clipArea = new bjj.PhotoClip("#clipArea", {
+        size: [400, 200],
+        outputSize: [width, 182],
+            file: "#file",
+            view: "#view",
+            ok: "#clipBtn",
+            loadStart: function() {
+               console.log("照片读取中");
+            },
+            loadComplete: function() {
+                $.ui.alert('图片上传中');
+            },
+            clipFinish: function(dataURL) {
+                $.ui.alert('图片后台处理中');
+                $.ajax({
+                    url: "{:U('File/uploadBanner')}",
+                    data: {str: dataURL},
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(data){
+                        if (data.status == 1 && data.pid != '') {
+                            var pid = data.pid;
+                            $('#view').attr('src',data.data).css({'width':'100%','height':'64px','background-color':'#fff'});
+                            $('#wap-banner').val(pid);
+                            $('#icon_close').show();
+                            $('#picCode').removeClass('active');
+                            $.ui.alert("上传成功");
+                        }else{
+                            $.ui.alert("上传失败");
+                        }
+                    }
+                })
+        }
+    });
+    function setImagePreview() {
+            var preview, img_txt, localImag, 
+                file_head = document.getElementById("file_head"),
+                picture = file_head.value;
+            if (!picture.match(/.jpg|.gif|.png|.bmp/i)) {
+                return alert("您上传的图片格式不正确，请重新选择！"),
+                !1;
+            }
+            if (preview = document.getElementById("preview"), file_head.files && file_head.files[0]){
+                preview.style.display = "block",
+                preview.style.width = "63px",
+                preview.style.height = "63px",
+                preview.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);
+            }else {
+                file_head.select(),
+                        file_head.blur(),
+                        img_txt = document.selection.createRange().text,
+                        localImag = document.getElementById("localImag"),
+                        localImag.style.width = "63px",
+                        localImag.style.height = "63px";
+                try {
+                    localImag.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)",
+                    localImag.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = img_txt
+                } catch(f) {
+                    return alert("您上传的图片格式不正确，请重新选择！"),
+                            !1
+                }
+                preview.style.display = "none",
+                document.selection.empty()
+            }
+            return document.getElementById("DivUp").style.display = "block",
+                    !0
+    }
+</script>
